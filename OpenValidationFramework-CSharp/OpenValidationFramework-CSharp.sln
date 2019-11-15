@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenValidationFramework-CSharp", "OpenValidationFramework-CSharp\OpenValidationFramework-CSharp.csproj", "{8407258D-C816-4E71-811F-0D73EDBDE0C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameworkTests", "FrameworkTests\FrameworkTests.csproj", "{4C931D78-F8FB-4AA7-A123-1441AC118A1C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8407258D-C816-4E71-811F-0D73EDBDE0C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8407258D-C816-4E71-811F-0D73EDBDE0C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8407258D-C816-4E71-811F-0D73EDBDE0C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8407258D-C816-4E71-811F-0D73EDBDE0C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C931D78-F8FB-4AA7-A123-1441AC118A1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C931D78-F8FB-4AA7-A123-1441AC118A1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C931D78-F8FB-4AA7-A123-1441AC118A1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C931D78-F8FB-4AA7-A123-1441AC118A1C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

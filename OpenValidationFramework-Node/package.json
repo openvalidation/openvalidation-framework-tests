@@ -1,0 +1,20 @@
+{
+  "name": "ov-frameworktest",
+  "version": "0.0.1",
+  "description": "Replace `HUMLFramework.js`.",
+  "main": "HUMLFramework.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "jasmine": "^3.5.0",
+    "karma": "^4.3.0",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-jasmine": "^2.0.1"
+  }
+}
