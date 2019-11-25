@@ -439,7 +439,7 @@ public class HUMLFramework {
         return ret[0];
     }
 
-    public <T> T[] FIRST(T item, double amount) {
+    public <T> T[] FIRST(T item, int amount) {
 
         if (item instanceof List) {
             List<T> tlist = (List<T>) item;
@@ -461,7 +461,7 @@ public class HUMLFramework {
         return null;
     }
 
-    public <T> T[] take(List<T> l, double amount) {
+    public <T> T[] take(List<T> l, int amount) {
         if (amount < 0)
             return listToArray(l);
 
@@ -476,20 +476,20 @@ public class HUMLFramework {
 //                return null;
 //    }
 
-    public <T> T[] FIRST(List<T> items, double amount) {
+    public <T> T[] FIRST(List<T> items, int amount) {
             return listToArray(items.stream().limit((long) amount).collect(Collectors.toList()));
     }
 
 //    public <T extends List<?>> T[] FIRST(T item, int amount) {
 //        return null;
-//        //List<T> a = ((List) item);
+//        List<T> a = ((List) item);
 //
-//        //return listToArray(((List<?>)item).stream().limit((long) amount).collect(Collectors.toList()));
-//               //items.take(2).toArray();
+//        return listToArray(((List<?>)item).stream().limit((long) amount).collect(Collectors.toList()));
+//               items.take(2).toArray();
 //
 //
 //
-//        //return FIRST(listToArray(list), amount);
+//        return FIRST(listToArray(list), amount);
 //    }
 
 
@@ -525,9 +525,9 @@ public class HUMLFramework {
         return FIRST(out, amount);
     }
 
-    public <T> T[] FIRST(List<T> list, int amount) {
-        return FIRST(listToArray(list), amount);
-    }
+//    public <T> T[] FIRST(List<T> list, int amount) {
+//        return FIRST(listToArray(list), amount);
+//    }
 
     public <T> T[] FIRST(T[] array, int amount) {
         if (array == null || array.length < 1 || amount < 0) return null;
