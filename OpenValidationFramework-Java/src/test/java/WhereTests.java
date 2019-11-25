@@ -42,7 +42,7 @@ public class WhereTests {
     {
         Person[] input = new Person[0];
         Predicate<Person> predicate = p -> true;
-        Person[] result = huml.where(input, predicate);
+        Person[] result = huml.WHERE(input, predicate);
 
         Assertions.assertNull(result);
         //Assertions.assertNotEquals(result, null);
@@ -57,7 +57,7 @@ public class WhereTests {
 
         Person[] input = {p1, p2};
         Predicate<Person> predicate = p -> true;
-        Person[] result = huml.where(input, predicate);
+        Person[] result = huml.WHERE(input, predicate);
         Assertions.assertEquals(input.length, result.length);
     }
 
@@ -70,7 +70,7 @@ public class WhereTests {
 
         Person[] input = {p1, p2, p3};
         Predicate<Person> predicate = p -> !p.married;
-        Person[] result = huml.where(input, predicate);
+        Person[] result = huml.WHERE(input, predicate);
         
         Assertions.assertEquals(input[0], result[0]);
         Assertions.assertEquals(input[2], result[1]);
@@ -85,7 +85,7 @@ public class WhereTests {
 
         Person[] input = {p1, p2, p3};
         Predicate<Person> predicate = p -> true;
-        Person[] result = huml.where(input, predicate);
+        Person[] result = huml.WHERE(input, predicate);
         Assertions.assertEquals(input[0], result[0]);
         Assertions.assertEquals(input[1], result[1]);
         Assertions.assertEquals(input[2], result[2]);
@@ -98,7 +98,7 @@ public class WhereTests {
     {
         List<Person> input = new ArrayList<>();
         Predicate<Person> predicate = p -> true;
-        Person[] result = huml.where(input, predicate);
+        Person[] result = huml.WHERE(input, predicate);
 
         Assertions.assertNull(result);
         //Assertions.assertEquals(input.size(), result.length);
@@ -112,7 +112,7 @@ public class WhereTests {
 
         List<Person> input = new ArrayList<>(Arrays.asList(p1, p2));
         Predicate<Person> predicate = p -> true;
-        Person[] result = huml.where(input, predicate);
+        Person[] result = huml.WHERE(input, predicate);
         Assertions.assertEquals(input.size(), result.length);
     }
 
@@ -125,7 +125,7 @@ public class WhereTests {
 
         List<Person> input = new ArrayList<>(Arrays.asList(p1, p2, p3));
         Predicate<Person> predicate = p -> !p.married;
-        Person[] result = huml.where(input, predicate);
+        Person[] result = huml.WHERE(input, predicate);
         
         Assertions.assertEquals(input.get(0), result[0]);
         Assertions.assertEquals(input.get(2), result[1]);
@@ -140,7 +140,7 @@ public class WhereTests {
 
         List<Person> input = new ArrayList<>(Arrays.asList(p1, p2, p3));
         Predicate<Person> predicate = p -> true;
-        Person[] result = huml.where(input, predicate);
+        Person[] result = huml.WHERE(input, predicate);
         Assertions.assertEquals(input.get(0), result[0]);
         Assertions.assertEquals(input.get(1), result[1]);
         Assertions.assertEquals(input.get(2), result[2]);

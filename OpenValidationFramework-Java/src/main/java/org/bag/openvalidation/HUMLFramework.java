@@ -431,36 +431,53 @@ public class HUMLFramework {
         return listToArray(out);
     }
 
-    //first functions
+        //first functions
 
-//    public <T> T FIRST(T item) {
-//        if (item instanceof List) {
-//            return FIRST((List<T>) item, 1d);
-//            List<T> tlist = (List<T>) item;
-//            if (!tlist.isEmpty())
-//                return tlist.get(0);
-//            else
-//                return null;
-//        } else if (item.getClass().isArray()) {
+    public <T> T FIRST(T item) {
+        T[] ret =  FIRST(item, -1);
+
+        return ret[0];
+    }
+
+    public <T> T[] FIRST(T item, double amount) {
+
+        if (item instanceof List) {
+            List<T> tlist = (List<T>) item;
+
+            if (!tlist.isEmpty())
+                return take(tlist, amount);
+            else
+                return null;
+
+        } else if (item.getClass().isArray()) {
+            List<T> aa = Arrays.asList((T[])item);
+            return take(aa, amount);
 //            if (Array.getLength(item) > 0)
 //                return (T) Array.get(item, 0);
 //            else
 //                return null;
-//        }
-//
-//        return item;
-//    }
+        }
 
-    public <T> T[] FIRST(T[] items, double amount) {
-        if (Array.getLength(items) > 0) {
-            T[] stuff = listToArray(Arrays.asList(items).stream().limit((long) amount).collect(Collectors.toList()));
-            return stuff;
-        } else
-            return listToArray(Collections.emptyList());
+        return null;
     }
 
+    public <T> T[] take(List<T> l, double amount) {
+        if (amount < 0)
+            return listToArray(l);
+
+        return  listToArray(l.stream().limit((long) amount).collect(Collectors.toList()));
+    }
+
+//    public <T> T[] FIRST(T[] items, double amount) {
+//            if (Array.getLength(items) > 0) {
+//                T[] stuff = listToArray(Arrays.asList(items).stream().limit((long) amount).collect(Collectors.toList()));
+//                return stuff;
+//            } else
+//                return null;
+//    }
+
     public <T> T[] FIRST(List<T> items, double amount) {
-        return listToArray(items.stream().limit((long) amount).collect(Collectors.toList()));
+            return listToArray(items.stream().limit((long) amount).collect(Collectors.toList()));
     }
 
 //    public <T extends List<?>> T[] FIRST(T item, int amount) {
@@ -480,7 +497,7 @@ public class HUMLFramework {
         return FIRST(listToArray(list));
     }
 
-    public <T> T FIRST(T[] array) { //todo rename sub calls
+    public <T> T FIRST(T[] array) {
         return atPosition(array, 0);
     }
 
