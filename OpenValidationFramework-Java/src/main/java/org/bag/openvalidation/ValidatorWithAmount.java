@@ -11,7 +11,7 @@ public class ValidatorWithAmount implements HUMLFramework.IOpenValidator
         huml = new HUMLFramework();
 
         HUMLFramework.Variable array = huml.CreateVariable("array", (Model model) -> model.getNumbers());
-        HUMLFramework.Variable array2Items = huml.CreateVariable("X", (Model model) -> huml.FIRST(array.GetValue(model), 2.0));
+        HUMLFramework.Variable array2Items = huml.CreateVariable("X", (Model model) -> huml.FIRST(array.GetValue(model), 2));
 
         HUMLFramework.Variable X = huml.CreateVariable("X",
                 (Model model) ->

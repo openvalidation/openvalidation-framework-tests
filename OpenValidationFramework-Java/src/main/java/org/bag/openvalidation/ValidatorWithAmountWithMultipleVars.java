@@ -12,8 +12,8 @@ public class ValidatorWithAmountWithMultipleVars implements HUMLFramework.IOpenV
 
         HUMLFramework.Variable array = huml.CreateVariable("array", (Model model) -> model.getNumbers());
 
-        HUMLFramework.Variable firstFilter = huml.CreateVariable("firstfilter", (Model model) -> huml.FIRST(array.GetValue(model), 2.0));
-        HUMLFramework.Variable secondFilter = huml.CreateVariable("secondfilter", (Model model) -> huml.FIRST(firstFilter.GetValue(model), 2.0));
+        HUMLFramework.Variable firstFilter = huml.CreateVariable("firstfilter", (Model model) -> huml.FIRST(array.GetValue(model), 2));
+        HUMLFramework.Variable secondFilter = huml.CreateVariable("secondfilter", (Model model) -> huml.FIRST(firstFilter.GetValue(model), 2));
 
         HUMLFramework.Variable X = huml.CreateVariable("X",
                 (Model model) ->

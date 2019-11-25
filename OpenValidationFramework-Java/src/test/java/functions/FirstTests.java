@@ -2,6 +2,7 @@ package functions;
 
 import org.bag.openvalidation.HUMLFramework;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -169,6 +170,33 @@ public class FirstTests {
         Integer[] result = huml.FIRST(input, function, 2);
         Assertions.assertEquals(result[0], 24);
         Assertions.assertEquals(result[1], 42);
+    }
+    
+    @Test
+    void first_with_int_list()
+    {
+        List<Integer> input = new ArrayList<>();
+        input.add(1);
+        input.add(2);
+        input.add(3);
+        
+        Integer[] res = huml.FIRST(input, 2);
+        
+        Assertions.assertEquals(res.length, 2);
+        Assertions.assertEquals(res[0], 1);
+        Assertions.assertEquals(res[1], 2);
+    }
+
+    @Test
+    void first_with_int_array()
+    {
+        Integer[] input = new Integer[]{1,2,3};
+
+        Integer[] res = huml.FIRST(input, 2);
+
+        Assertions.assertEquals(res.length, 2);
+        Assertions.assertEquals(res[0], 1);
+        Assertions.assertEquals(res[1], 2);
     }
 
 }
