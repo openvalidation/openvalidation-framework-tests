@@ -1,27 +1,28 @@
+package org.bag.openvalidation;
 
-    package org.bag.openvalidation;
-
-    import java.math.BigDecimal;
+import java.lang.reflect.Array;
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.lang.reflect.Array;
+import java.util.stream.Stream;
 
 
-    public class HUMLFramework {
+public class HUMLFramework {
 
-public List<ValidationRule> Rules = new ArrayList<>();
+    public List<ValidationRule> Rules = new ArrayList<>();
 
     public interface IOpenValidator {
         String getValidatorID();
+
         OpenValidationSummary validate(Object model);
     }
 
     //VALIDATION METHODS
 
-    public <T> ValidationRule  appendRule(String name, String[] fields, String error, Predicate<T> validationFunc, Boolean disabled) {
+    public <T> ValidationRule appendRule(String name, String[] fields, String error, Predicate<T> validationFunc, Boolean disabled) {
         ValidationRule rule = new ValidationRule(name, fields, error, validationFunc, disabled);
         this.Rules.add(rule);
         return rule;
@@ -31,22 +32,22 @@ public List<ValidationRule> Rules = new ArrayList<>();
     public <T> OpenValidationSummary validate(T model) {
         OpenValidationSummary summary = new OpenValidationSummary();
 
-        for(ValidationRule rule : this.getEnabledRules()){
+        for (ValidationRule rule : this.getEnabledRules()) {
             try {
                 ValidationResult result = rule.Validate(model);
 
-                    if (result.hasErrors()) {
-                        summary.AppendError(result.getRule().getError(), result.getRule().getFields());
-                    }
+                if (result.hasErrors()) {
+                    summary.AppendError(result.getRule().getError(), result.getRule().getFields());
+                }
             } catch (Exception ex) {
-                summary.AppendError((ex.getMessage() == null)? ex.toString() : ex.getMessage(), null);
+                summary.AppendError((ex.getMessage() == null) ? ex.toString() : ex.getMessage(), null);
             }
         }
 
         return summary;
     }
 
-    public <T> ValidationResult ValidateRule(T model, String ruleName) throws Exception{
+    public <T> ValidationResult ValidateRule(T model, String ruleName) throws Exception {
         ValidationRule preCondition = this.GetRule(model, ruleName);
         ValidationResult preConditionResult = preCondition.Validate(model);
 
@@ -56,7 +57,7 @@ public List<ValidationRule> Rules = new ArrayList<>();
         return null;
     }
 
-    public <T> Boolean ExecuteRuleCondition(T model, String ruleName) throws Exception{
+    public <T> Boolean ExecuteRuleCondition(T model, String ruleName) throws Exception {
         ValidationRule preCondition = this.GetRule(model, ruleName);
         return preCondition.ExecuteCondition(model);
     }
@@ -70,16 +71,15 @@ public List<ValidationRule> Rules = new ArrayList<>();
     //        return new Variable<T>(name, value);
     //    }
 
-    public <TM, T> Variable<TM, T> CreateVariable(String name, Function<TM, T> value)
-    {
+    public <TM, T> Variable<TM, T> CreateVariable(String name, Function<TM, T> value) {
         return new Variable<TM, T>(name, value);
     }
 
     public <T> ValidationRule GetRule(T model, String ruleName) throws Exception {
         Optional<ValidationRule> rule = this.Rules.stream()
-                                        .filter(r -> r.getName() != null && !r.getName().isEmpty())
-                                        .filter(r -> r.getName().toLowerCase() == ruleName.toLowerCase())
-                                        .findFirst();
+                .filter(r -> r.getName() != null && !r.getName().isEmpty())
+                .filter(r -> r.getName().toLowerCase() == ruleName.toLowerCase())
+                .findFirst();
 
         if (rule.isPresent())
             return rule.get();
@@ -92,12 +92,11 @@ public List<ValidationRule> Rules = new ArrayList<>();
     public abstract class RuleItem {
         private String _name;
 
-        public String getName()
-        {
+        public String getName() {
             return _name;
         }
 
-        protected void setName(String name){
+        protected void setName(String name) {
             this._name = name;
         }
     }
@@ -109,27 +108,23 @@ public List<ValidationRule> Rules = new ArrayList<>();
         private String _error;
         private Boolean _disabled;
 
-        public String getName()
-        {
+        public String getName() {
             return this._name;
         }
 
-        public String[] getFields()
-        {
+        public String[] getFields() {
             return this._fields;
         }
 
-        public String getError()
-        {
+        public String getError() {
             return this._error;
         }
 
-        public Boolean isDisabled()
-        {
+        public Boolean isDisabled() {
             return this._disabled;
         }
 
-        public Boolean hasError(){
+        public Boolean hasError() {
             return this._error != null && !this._error.isEmpty();
         }
 
@@ -154,7 +149,7 @@ public List<ValidationRule> Rules = new ArrayList<>();
 
         public ValidationResult CreateResult(T model, ValidationRule rule, Predicate<T> isInvalidFnc) {
             return isInvalidFnc.test(model) ?
-            new ValidationResult(rule) : new ValidationResult();
+                    new ValidationResult(rule) : new ValidationResult();
         }
 
         public Boolean ExecuteCondition(T model) {
@@ -181,20 +176,18 @@ public List<ValidationRule> Rules = new ArrayList<>();
     }
 
     public class OpenValidationSummary {
-        private List<OpenValidationSummaryError> _errors  = new ArrayList<>();
-        private List<String>  _fields = new ArrayList<>();
+        private List<OpenValidationSummaryError> _errors = new ArrayList<>();
+        private List<String> _fields = new ArrayList<>();
 
-        public OpenValidationSummaryError[] getErrors()
-        {
+        public OpenValidationSummaryError[] getErrors() {
             return this._errors.stream().toArray(OpenValidationSummaryError[]::new);
         }
 
-        public String[] getFields()
-        {
+        public String[] getFields() {
             return this._errors.stream()
-                                .filter(e -> e.getFields() != null && e.getFields().length > 0 )
-                                .flatMap(e -> Arrays.stream(e.getFields()) )
-                                .toArray(String[]::new);
+                    .filter(e -> e.getFields() != null && e.getFields().length > 0)
+                    .flatMap(e -> Arrays.stream(e.getFields()))
+                    .toArray(String[]::new);
         }
 
 
@@ -202,14 +195,13 @@ public List<ValidationRule> Rules = new ArrayList<>();
             this._errors.add(new OpenValidationSummaryError(error, fields));
         }
 
-        public Boolean hasErrors()
-        {
+        public Boolean hasErrors() {
             return this._errors != null && this._errors.size() > 0;
         }
 
         public List<OpenValidationSummaryError> GeErrors() {
             return (this.getErrors() != null) ?
-                Arrays.stream(this.getErrors()).filter( distinctByKey(e -> e.getError())).collect(Collectors.toList()) : new ArrayList<>();
+                    Arrays.stream(this.getErrors()).filter(distinctByKey(e -> e.getError())).collect(Collectors.toList()) : new ArrayList<>();
         }
     }
 
@@ -217,13 +209,11 @@ public List<ValidationRule> Rules = new ArrayList<>();
         private String _error;
         private String[] _fields;
 
-        public String getError()
-        {
+        public String getError() {
             return _error;
         }
 
-        public String[] getFields()
-        {
+        public String[] getFields() {
             return this._fields;
         }
 
@@ -236,43 +226,40 @@ public List<ValidationRule> Rules = new ArrayList<>();
     public class ValidationResult {
         private ValidationRule _rule;
 
-        public ValidationResult(ValidationRule rule){
+        public ValidationResult(ValidationRule rule) {
             this.setRule(rule);
         }
 
-        public ValidationResult(){}
+        public ValidationResult() {
+        }
 
 
-        public ValidationRule getRule()
-        {
+        public ValidationRule getRule() {
             return _rule;
         }
 
-        public void setRule(ValidationRule rule)
-        {
+        public void setRule(ValidationRule rule) {
             _rule = rule;
         }
 
 
-        public Boolean hasErrors()
-        {
+        public Boolean hasErrors() {
             return (getError() != null);
         }
 
 
-        public String getError()
-        {
-            return (getRule() != null)? getRule().getError() : null;
+        public String getError() {
+            return (getRule() != null) ? getRule().getError() : null;
         }
     }
 
     public class NumberComparator implements Comparator<Number> {
-        public int compare(Number a, Number b){
+        public int compare(Number a, Number b) {
             if (a != null && b != null)
                 return new BigDecimal(a.toString()).compareTo(new BigDecimal(b.toString()));
             else
-                return ((a == null && b != null) || (a != null && b == null))?
-                                 -1 : 0;
+                return ((a == null && b != null) || (a != null && b == null)) ?
+                        -1 : 0;
         }
     }
 
@@ -280,17 +267,16 @@ public List<ValidationRule> Rules = new ArrayList<>();
 
     public <T> Boolean EQUALS(T leftOperand, T rightOperand) {
         if (leftOperand instanceof Number && rightOperand instanceof Number)
-            return EQUALS((Number) leftOperand, (Number)rightOperand);
+            return EQUALS((Number) leftOperand, (Number) rightOperand);
 
 
-        if (leftOperand != null && rightOperand != null){
-                if (leftOperand instanceof Enum<?> && rightOperand instanceof String ||
-                rightOperand instanceof Enum<?> && leftOperand instanceof String){
-                    return leftOperand.toString().equals(rightOperand.toString());
-                }
-                else{
-                    return leftOperand.equals(rightOperand);
-                }
+        if (leftOperand != null && rightOperand != null) {
+            if (leftOperand instanceof Enum<?> && rightOperand instanceof String ||
+                    rightOperand instanceof Enum<?> && leftOperand instanceof String) {
+                return leftOperand.toString().equals(rightOperand.toString());
+            } else {
+                return leftOperand.equals(rightOperand);
+            }
         }
 
 
@@ -300,20 +286,18 @@ public List<ValidationRule> Rules = new ArrayList<>();
         return false;
     }
 
-    public  Boolean EQUALS(Number left, Number right) {
+    public Boolean EQUALS(Number left, Number right) {
         if (left != null && right != null)
             return _numComp.compare(left, right) == 0;
 
         return false;
     }
 
-    public <T> Boolean NOT_EQUALS(T leftOperand, T rightOperand)
-    {
+    public <T> Boolean NOT_EQUALS(T leftOperand, T rightOperand) {
         return !EQUALS(leftOperand, rightOperand);
     }
 
-    public Boolean NOT_EQUALS(Number leftOperand, Number rightOperand)
-    {
+    public Boolean NOT_EQUALS(Number leftOperand, Number rightOperand) {
         return !EQUALS(leftOperand, rightOperand);
     }
 
@@ -321,10 +305,10 @@ public List<ValidationRule> Rules = new ArrayList<>();
         if (operand == null) return true;
 
         if (operand instanceof String)
-            return ((String)operand).length() < 1;
+            return ((String) operand).length() < 1;
 
         if (operand instanceof List<?>)
-            return ((List)operand).size() < 1;
+            return ((List) operand).size() < 1;
 
         return false;
     }
@@ -333,90 +317,77 @@ public List<ValidationRule> Rules = new ArrayList<>();
         return !EMPTY(operand);
     }
 
-    public <T> Boolean LESS_THAN(T leftOperand, T rightOperand)
-    {
+    public <T> Boolean LESS_THAN(T leftOperand, T rightOperand) {
         Number left = (Number) leftOperand;
         Number right = (Number) rightOperand;
         return _numComp.compare(left, right) < 0;
     }
 
-    public <T> Boolean GREATER_THAN( T leftOperand, T rightOperand)
-    {
+    public <T> Boolean GREATER_THAN(T leftOperand, T rightOperand) {
         Number left = (Number) leftOperand;
         Number right = (Number) rightOperand;
         return _numComp.compare(left, right) > 0;
     }
 
-    public <T> Boolean LESS_OR_EQUALS( T leftOperand, T rightOperand)
-    {
+    public <T> Boolean LESS_OR_EQUALS(T leftOperand, T rightOperand) {
         return LESS_THAN(leftOperand, rightOperand) || EQUALS(leftOperand, rightOperand);
     }
 
-    public Boolean LESS_OR_EQUALS(Number leftOperand, Number rightOperand)
-    {
+    public Boolean LESS_OR_EQUALS(Number leftOperand, Number rightOperand) {
         return LESS_THAN(leftOperand, rightOperand) || EQUALS(leftOperand, rightOperand);
     }
 
-    public <T> Boolean GREATER_OR_EQUALS( T leftOperand, T rightOperand)
-    {
+    public <T> Boolean GREATER_OR_EQUALS(T leftOperand, T rightOperand) {
         return GREATER_THAN(leftOperand, rightOperand) || EQUALS(leftOperand, rightOperand);
     }
 
-    public Boolean GREATER_OR_EQUALS(Number leftOperand, Number rightOperand)
-    {
+    public Boolean GREATER_OR_EQUALS(Number leftOperand, Number rightOperand) {
         return GREATER_THAN(leftOperand, rightOperand) || EQUALS(leftOperand, rightOperand);
     }
 
-    public <T> Boolean ONE_OF(T leftOperand, T... rightOperand)
-    {
+    public <T> Boolean ONE_OF(T leftOperand, T... rightOperand) {
         boolean value = (rightOperand != null && rightOperand.length > 0);
-        if(value && rightOperand[0] instanceof Collection)
-        {
-            value = ((Collection<T>)rightOperand[0]).stream().anyMatch(i -> i.equals(leftOperand));
-        }
-        else if (value){
+        if (value && rightOperand[0] instanceof Collection) {
+            value = ((Collection<T>) rightOperand[0]).stream().anyMatch(i -> i.equals(leftOperand));
+        } else if (value) {
             value = Arrays.stream(rightOperand).anyMatch(i -> i.equals(leftOperand));
-        }
-        else{
+        } else {
             value = false;
         }
 
         return value;
     }
 
-    public <T> Boolean AT_LEAST_ONE_OF(T leftOperand, T... rightOperand)
-    {
+    public <T> Boolean AT_LEAST_ONE_OF(T leftOperand, T... rightOperand) {
         return ONE_OF(leftOperand, rightOperand);
     }
 
-    public <T> Boolean NONE_OF(T leftOperand, T... rightOperand){
+    public <T> Boolean NONE_OF(T leftOperand, T... rightOperand) {
         return !AT_LEAST_ONE_OF(leftOperand, rightOperand);
     }
 
-    public <T extends Number> BigDecimal SUM_OF(T... items)
-    {
+    public <T extends Number> BigDecimal SUM_OF(T... items) {
         if (items == null || items.length < 1)
             return new BigDecimal(0);
 
         BigDecimal value = new BigDecimal(0);
-        for(T item : items){
+        for (T item : items) {
             value = BigDecimal.valueOf(item.doubleValue()).add(value);
         }
         return value;
     }
 
-    public <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor)
-    {
+    public <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
         Map<Object, Boolean> map = new ConcurrentHashMap<>();
         return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }
 
     // Arrays...
-    public <T,R> R[] getArrayOf(T[] array, Function<? super T, ? extends R> propertySelector) {
-        return getArrayOf(Arrays.stream(array).collect(Collectors.toList()), propertySelector);
+    public <T, R> R[] GET_ARRAY_OF(T[] array, Function<? super T, ? extends R> propertySelector) {
+        return GET_ARRAY_OF(Arrays.stream(array).collect(Collectors.toList()), propertySelector);
     }
 
-    public <T,R> R[] getArrayOf(List<T> list, Function<? super T, ? extends R> propertySelector) {
+    public <T, R> R[] GET_ARRAY_OF(List<T> list, Function<? super T, ? extends R> propertySelector) {
         if (list == null || list.size() < 1)
             return null;
 
@@ -433,9 +404,9 @@ public List<ValidationRule> Rules = new ArrayList<>();
 
 
     public static <T> T[] listToArray(List<T> list) {
-        if (list == null || list.size() < 1) return  null;
+        if (list == null || list.size() < 1) return null;
 
-        T cls = ((T)list.get(0));
+        T cls = ((T) list.get(0));
         Class<T> zlz = (Class<T>) cls.getClass();
 
 
@@ -448,11 +419,11 @@ public List<ValidationRule> Rules = new ArrayList<>();
         return arr;
     }
 
-    public <T> T[] where(T[] array, Predicate<? super T> condition) {
-        return where(toList(array), condition);
+    public <T> T[] WHERE(T[] array, Predicate<? super T> condition) {
+        return WHERE(toList(array), condition);
     }
 
-    public <T> T[] where(List<T> list, Predicate<? super T> condition) {
+    public <T> T[] WHERE(List<T> list, Predicate<? super T> condition) {
         if (list == null || list.size() < 1)
             return null;
 
@@ -462,19 +433,62 @@ public List<ValidationRule> Rules = new ArrayList<>();
 
     //first functions
 
+//    public <T> T FIRST(T item) {
+//        if (item instanceof List) {
+//            return FIRST((List<T>) item, 1d);
+//            List<T> tlist = (List<T>) item;
+//            if (!tlist.isEmpty())
+//                return tlist.get(0);
+//            else
+//                return null;
+//        } else if (item.getClass().isArray()) {
+//            if (Array.getLength(item) > 0)
+//                return (T) Array.get(item, 0);
+//            else
+//                return null;
+//        }
+//
+//        return item;
+//    }
+
+    public <T> T[] FIRST(T[] items, double amount) {
+        if (Array.getLength(items) > 0) {
+            T[] stuff = listToArray(Arrays.asList(items).stream().limit((long) amount).collect(Collectors.toList()));
+            return stuff;
+        } else
+            return listToArray(Collections.emptyList());
+    }
+
+    public <T> T[] FIRST(List<T> items, double amount) {
+        return listToArray(items.stream().limit((long) amount).collect(Collectors.toList()));
+    }
+
+//    public <T extends List<?>> T[] FIRST(T item, int amount) {
+//        return null;
+//        //List<T> a = ((List) item);
+//
+//        //return listToArray(((List<?>)item).stream().limit((long) amount).collect(Collectors.toList()));
+//               //items.take(2).toArray();
+//
+//
+//
+//        //return FIRST(listToArray(list), amount);
+//    }
+
+
     public <T> T FIRST(List<T> list) {
         return FIRST(listToArray(list));
     }
 
-    public <T> T FIRST(T[] array) {
+    public <T> T FIRST(T[] array) { //todo rename sub calls
         return atPosition(array, 0);
     }
 
-    public <T,R> R FIRST(List<T> list, Function<? super T, ? extends R> propertySelector) {
+    public <T, R> R FIRST(List<T> list, Function<? super T, ? extends R> propertySelector) {
         return FIRST(listToArray(list), propertySelector);
     }
 
-    public <T,R> R FIRST(T[] array, Function<? super T, ? extends R> propertySelector) {
+    public <T, R> R FIRST(T[] array, Function<? super T, ? extends R> propertySelector) {
         if (array == null || array.length < 1)
             return null;
 
@@ -482,11 +496,11 @@ public List<ValidationRule> Rules = new ArrayList<>();
         return FIRST(out);
     }
 
-    public <T,R> R[] FIRST(List<T> list, Function<? super T, ? extends R> propertySelector, int amount) {
+    public <T, R> R[] FIRST(List<T> list, Function<? super T, ? extends R> propertySelector, int amount) {
         return FIRST(listToArray(list), propertySelector, amount);
     }
 
-    public <T,R> R[] FIRST(T[] array, Function<? super T, ? extends R> propertySelector, int amount) {
+    public <T, R> R[] FIRST(T[] array, Function<? super T, ? extends R> propertySelector, int amount) {
         if (array == null || array.length < 1)
             return null;
 
@@ -494,12 +508,12 @@ public List<ValidationRule> Rules = new ArrayList<>();
         return FIRST(out, amount);
     }
 
-    public <T> T[] FIRST(List<T> list, int amount){
+    public <T> T[] FIRST(List<T> list, int amount) {
         return FIRST(listToArray(list), amount);
     }
 
-    public <T> T[] FIRST(T[] array, int amount){
-        if (array == null || array.length < 1 || amount < 0) return  null;
+    public <T> T[] FIRST(T[] array, int amount) {
+        if (array == null || array.length < 1 || amount < 0) return null;
 
         List<T> out = Arrays.stream(array).limit(amount).collect(Collectors.toList());
         return listToArray(out);
@@ -508,24 +522,23 @@ public List<ValidationRule> Rules = new ArrayList<>();
     //#end first functions
 
 
-
     //last
     public <T> T LAST(List<T> list) {
         return LAST(listToArray(list));
     }
 
     public <T> T LAST(T[] array) {
-        if (array.length > 0 )
-            return atPosition(array, array.length-1);
+        if (array.length > 0)
+            return atPosition(array, array.length - 1);
 
         return null;
     }
 
-    public <T,R> R LAST(List<T> list, Function<? super T, ? extends R> propertySelector) {
+    public <T, R> R LAST(List<T> list, Function<? super T, ? extends R> propertySelector) {
         return LAST(listToArray(list), propertySelector);
     }
 
-    public <T,R> R LAST(T[] array, Function<? super T, ? extends R> propertySelector) {
+    public <T, R> R LAST(T[] array, Function<? super T, ? extends R> propertySelector) {
         if (array == null || array.length < 1)
             return null;
 
@@ -533,11 +546,11 @@ public List<ValidationRule> Rules = new ArrayList<>();
         return LAST(out);
     }
 
-    public <T> T[] LAST(List<T> list, int amount){
+    public <T> T[] LAST(List<T> list, int amount) {
         return LAST(listToArray(list), amount);
     }
 
-    public <T> T[] LAST(T[] array, int amount){
+    public <T> T[] LAST(T[] array, int amount) {
         if (array == null || array.length < 1 || amount < 1)
             return null;
 
@@ -552,13 +565,13 @@ public List<ValidationRule> Rules = new ArrayList<>();
         return listToArray(new ArrayList<>(result));
     }
 
-    public <T,R> R[] LAST(List<T> list, Function<? super T, ? extends R> propertySelector, int amount) {
+    public <T, R> R[] LAST(List<T> list, Function<? super T, ? extends R> propertySelector, int amount) {
         return LAST(listToArray(list), propertySelector, amount);
     }
 
-    public <T,R> R[] LAST(T[] array, Function<? super T, ? extends R> propertySelector, int amount) {
+    public <T, R> R[] LAST(T[] array, Function<? super T, ? extends R> propertySelector, int amount) {
         if (array == null || array.length < 1)
-        return null;
+            return null;
 
         List<R> out = Arrays.stream(array).map(propertySelector).collect(Collectors.toList());
         return LAST(out, amount);
