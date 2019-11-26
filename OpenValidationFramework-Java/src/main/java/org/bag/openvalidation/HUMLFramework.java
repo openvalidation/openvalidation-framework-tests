@@ -7,27 +7,36 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 public class HUMLFramework {
 
     public List<ValidationRule> Rules = new ArrayList<>();
-
-    public interface IOpenValidator {
-        String getValidatorID();
-
-        OpenValidationSummary validate(Object model);
-    }
+    private NumberComparator _numComp = new NumberComparator();
 
     //VALIDATION METHODS
+
+    public static <T> T[] listToArray(List<T> list) {
+        if (list == null || list.size() < 1) return null;
+
+        T cls = ((T) list.get(0));
+        Class<T> zlz = (Class<T>) cls.getClass();
+
+
+        T[] arr = (T[]) Array.newInstance(zlz, list.size());
+
+        for (int i = 0; i < list.size(); ++i) {
+            arr[i] = list.get(i);
+        }
+
+        return arr;
+    }
 
     public <T> ValidationRule appendRule(String name, String[] fields, String error, Predicate<T> validationFunc, Boolean disabled) {
         ValidationRule rule = new ValidationRule(name, fields, error, validationFunc, disabled);
         this.Rules.add(rule);
         return rule;
     }
-
 
     public <T> OpenValidationSummary validate(T model) {
         OpenValidationSummary summary = new OpenValidationSummary();
@@ -62,18 +71,20 @@ public class HUMLFramework {
         return preCondition.ExecuteCondition(model);
     }
 
-    public List<ValidationRule> getEnabledRules() {
-        return this.Rules.stream().filter(r -> !r.isDisabled() && r.hasError()).collect(Collectors.toList());
-    }
-
     //    public <T> Variable<T> CreateVariable(String name, T value)
     //    {
     //        return new Variable<T>(name, value);
     //    }
 
+    public List<ValidationRule> getEnabledRules() {
+        return this.Rules.stream().filter(r -> !r.isDisabled() && r.hasError()).collect(Collectors.toList());
+    }
+
     public <TM, T> Variable<TM, T> CreateVariable(String name, Function<TM, T> value) {
         return new Variable<TM, T>(name, value);
     }
+
+    //END OF VALIDATION METHODS
 
     public <T> ValidationRule GetRule(T model, String ruleName) throws Exception {
         Optional<ValidationRule> rule = this.Rules.stream()
@@ -86,184 +97,6 @@ public class HUMLFramework {
 
         throw new Exception("Rule with name: \"" + ruleName + "\" could not be found.");
     }
-
-    //END OF VALIDATION METHODS
-
-    public abstract class RuleItem {
-        private String _name;
-
-        public String getName() {
-            return _name;
-        }
-
-        protected void setName(String name) {
-            this._name = name;
-        }
-    }
-
-    public class ValidationRule<T> extends RuleItem {
-        private Predicate<T> _conditionFnc;
-        private String _name;
-        private String[] _fields;
-        private String _error;
-        private Boolean _disabled;
-
-        public String getName() {
-            return this._name;
-        }
-
-        public String[] getFields() {
-            return this._fields;
-        }
-
-        public String getError() {
-            return this._error;
-        }
-
-        public Boolean isDisabled() {
-            return this._disabled;
-        }
-
-        public Boolean hasError() {
-            return this._error != null && !this._error.isEmpty();
-        }
-
-        public ValidationRule(String name, String[] fields, Predicate<T> conditionFnc, Boolean disabled) {
-            this._name = name;
-            this._fields = fields;
-            this._conditionFnc = conditionFnc;
-            this._disabled = disabled;
-        }
-
-        public ValidationRule(String name, String[] fields, String error, Predicate<T> conditionFnc, Boolean disabled) {
-            this._name = name;
-            this._fields = fields;
-            this._error = error;
-            this._conditionFnc = conditionFnc;
-            this._disabled = disabled;
-        }
-
-        public ValidationResult Validate(T model) {
-            return this.CreateResult(model, this, this._conditionFnc);
-        }
-
-        public ValidationResult CreateResult(T model, ValidationRule rule, Predicate<T> isInvalidFnc) {
-            return isInvalidFnc.test(model) ?
-                    new ValidationResult(rule) : new ValidationResult();
-        }
-
-        public Boolean ExecuteCondition(T model) {
-            return this._conditionFnc.test(model);
-        }
-    }
-
-    public class Variable<TM, T> extends RuleItem {
-        private Function<TM, T> _valueFunc;
-
-        public Variable(String name, T value) {
-            this.setName(name);
-            this._valueFunc = (model) -> value;
-        }
-
-        public Variable(String name, Function<TM, T> valueFunc) {
-            this.setName(name);
-            this._valueFunc = valueFunc;
-        }
-
-        public T GetValue(TM model) {
-            return this._valueFunc.apply(model);
-        }
-    }
-
-    public class OpenValidationSummary {
-        private List<OpenValidationSummaryError> _errors = new ArrayList<>();
-        private List<String> _fields = new ArrayList<>();
-
-        public OpenValidationSummaryError[] getErrors() {
-            return this._errors.stream().toArray(OpenValidationSummaryError[]::new);
-        }
-
-        public String[] getFields() {
-            return this._errors.stream()
-                    .filter(e -> e.getFields() != null && e.getFields().length > 0)
-                    .flatMap(e -> Arrays.stream(e.getFields()))
-                    .toArray(String[]::new);
-        }
-
-
-        public void AppendError(String error, String[] fields) {
-            this._errors.add(new OpenValidationSummaryError(error, fields));
-        }
-
-        public Boolean hasErrors() {
-            return this._errors != null && this._errors.size() > 0;
-        }
-
-        public List<OpenValidationSummaryError> GeErrors() {
-            return (this.getErrors() != null) ?
-                    Arrays.stream(this.getErrors()).filter(distinctByKey(e -> e.getError())).collect(Collectors.toList()) : new ArrayList<>();
-        }
-    }
-
-    public class OpenValidationSummaryError {
-        private String _error;
-        private String[] _fields;
-
-        public String getError() {
-            return _error;
-        }
-
-        public String[] getFields() {
-            return this._fields;
-        }
-
-        public OpenValidationSummaryError(String error, String[] fields) {
-            this._error = error;
-            this._fields = fields;
-        }
-    }
-
-    public class ValidationResult {
-        private ValidationRule _rule;
-
-        public ValidationResult(ValidationRule rule) {
-            this.setRule(rule);
-        }
-
-        public ValidationResult() {
-        }
-
-
-        public ValidationRule getRule() {
-            return _rule;
-        }
-
-        public void setRule(ValidationRule rule) {
-            _rule = rule;
-        }
-
-
-        public Boolean hasErrors() {
-            return (getError() != null);
-        }
-
-
-        public String getError() {
-            return (getRule() != null) ? getRule().getError() : null;
-        }
-    }
-
-    public class NumberComparator implements Comparator<Number> {
-        public int compare(Number a, Number b) {
-            if (a != null && b != null)
-                return new BigDecimal(a.toString()).compareTo(new BigDecimal(b.toString()));
-            else
-                return ((a == null && b != null) || (a != null && b == null)) ?
-                        -1 : 0;
-        }
-    }
-
-    private NumberComparator _numComp = new NumberComparator();
 
     public <T> Boolean EQUALS(T leftOperand, T rightOperand) {
         if (leftOperand instanceof Number && rightOperand instanceof Number)
@@ -402,23 +235,6 @@ public class HUMLFramework {
         return Arrays.stream(array).collect(Collectors.toList());
     }
 
-
-    public static <T> T[] listToArray(List<T> list) {
-        if (list == null || list.size() < 1) return null;
-
-        T cls = ((T) list.get(0));
-        Class<T> zlz = (Class<T>) cls.getClass();
-
-
-        T[] arr = (T[]) Array.newInstance(zlz, list.size());
-
-        for (int i = 0; i < list.size(); ++i) {
-            arr[i] = list.get(i);
-        }
-
-        return arr;
-    }
-
     public <T> T[] WHERE(T[] array, Predicate<? super T> condition) {
         return WHERE(toList(array), condition);
     }
@@ -431,10 +247,8 @@ public class HUMLFramework {
         return listToArray(out);
     }
 
-        //first functions
-
     public <T> T FIRST(T item) {
-        T[] ret =  FIRST(item, -1);
+        T[] ret = FIRST(item, -1);
 
         return ret[0];
     }
@@ -450,8 +264,21 @@ public class HUMLFramework {
                 return null;
 
         } else if (item.getClass().isArray()) {
-            List<T> aa = Arrays.asList((T[])item);
-            return take(aa, amount);
+            if (item.getClass().getName().equalsIgnoreCase("[i"))//integer simpletype array
+            {
+                List<Integer> lst = new ArrayList<>();
+                for(int i : (int[])item){
+                    lst.add(i);
+                }
+                return take((List<T>) lst, amount);
+                
+            
+            } else {
+                List<T> lst = Arrays.asList((T[]) item);
+                return take(lst, amount);
+            }
+
+
 //            if (Array.getLength(item) > 0)
 //                return (T) Array.get(item, 0);
 //            else
@@ -461,37 +288,16 @@ public class HUMLFramework {
         return null;
     }
 
-    public <T> T[] take(List<T> l, int amount) {
+    public <T> T[] take(List<T> lst, int amount) {
         if (amount < 0)
-            return listToArray(l);
+            return listToArray(lst);
 
-        return  listToArray(l.stream().limit((long) amount).collect(Collectors.toList()));
+        return listToArray(lst.stream().limit((long) amount).collect(Collectors.toList()));
     }
-
-//    public <T> T[] FIRST(T[] items, double amount) {
-//            if (Array.getLength(items) > 0) {
-//                T[] stuff = listToArray(Arrays.asList(items).stream().limit((long) amount).collect(Collectors.toList()));
-//                return stuff;
-//            } else
-//                return null;
-//    }
 
     public <T> T[] FIRST(List<T> items, int amount) {
-            return listToArray(items.stream().limit((long) amount).collect(Collectors.toList()));
+        return listToArray(items.stream().limit((long) amount).collect(Collectors.toList()));
     }
-
-//    public <T extends List<?>> T[] FIRST(T item, int amount) {
-//        return null;
-//        List<T> a = ((List) item);
-//
-//        return listToArray(((List<?>)item).stream().limit((long) amount).collect(Collectors.toList()));
-//               items.take(2).toArray();
-//
-//
-//
-//        return FIRST(listToArray(list), amount);
-//    }
-
 
     public <T> T FIRST(List<T> list) {
         return FIRST(listToArray(list));
@@ -513,6 +319,8 @@ public class HUMLFramework {
         return FIRST(out);
     }
 
+    //first functions
+
     public <T, R> R[] FIRST(List<T> list, Function<? super T, ? extends R> propertySelector, int amount) {
         return FIRST(listToArray(list), propertySelector, amount);
     }
@@ -525,10 +333,6 @@ public class HUMLFramework {
         return FIRST(out, amount);
     }
 
-//    public <T> T[] FIRST(List<T> list, int amount) {
-//        return FIRST(listToArray(list), amount);
-//    }
-
     public <T> T[] FIRST(T[] array, int amount) {
         if (array == null || array.length < 1 || amount < 0) return null;
 
@@ -536,13 +340,30 @@ public class HUMLFramework {
         return listToArray(out);
     }
 
-    //#end first functions
-
+//    public <T> T[] FIRST(T[] items, double amount) {
+//            if (Array.getLength(items) > 0) {
+//                T[] stuff = listToArray(Arrays.asList(items).stream().limit((long) amount).collect(Collectors.toList()));
+//                return stuff;
+//            } else
+//                return null;
+//    }
 
     //last
     public <T> T LAST(List<T> list) {
         return LAST(listToArray(list));
     }
+
+//    public <T extends List<?>> T[] FIRST(T item, int amount) {
+//        return null;
+//        List<T> a = ((List) item);
+//
+//        return listToArray(((List<?>)item).stream().limit((long) amount).collect(Collectors.toList()));
+//               items.take(2).toArray();
+//
+//
+//
+//        return FIRST(listToArray(list), amount);
+//    }
 
     public <T> T LAST(T[] array) {
         if (array.length > 0)
@@ -586,6 +407,10 @@ public class HUMLFramework {
         return LAST(listToArray(list), propertySelector, amount);
     }
 
+//    public <T> T[] FIRST(List<T> list, int amount) {
+//        return FIRST(listToArray(list), amount);
+//    }
+
     public <T, R> R[] LAST(T[] array, Function<? super T, ? extends R> propertySelector, int amount) {
         if (array == null || array.length < 1)
             return null;
@@ -593,6 +418,8 @@ public class HUMLFramework {
         List<R> out = Arrays.stream(array).map(propertySelector).collect(Collectors.toList());
         return LAST(out, amount);
     }
+
+    //#end first functions
 
     public <T> int sizeOf(List<T> list) {
         if (list == null) return 0;
@@ -607,8 +434,6 @@ public class HUMLFramework {
         return array.length;
     }
 
-    //#end last functions
-
     public <T> T atPosition(List<T> list, int position) {
         return atPosition(listToArray(list), position);
     }
@@ -618,6 +443,188 @@ public class HUMLFramework {
             return array[position];
 
         return null;
+    }
+
+    public interface IOpenValidator {
+        String getValidatorID();
+
+        OpenValidationSummary validate(Object model);
+    }
+
+    public abstract class RuleItem {
+        private String _name;
+
+        public String getName() {
+            return _name;
+        }
+
+        protected void setName(String name) {
+            this._name = name;
+        }
+    }
+
+    public class ValidationRule<T> extends RuleItem {
+        private Predicate<T> _conditionFnc;
+        private String _name;
+        private String[] _fields;
+        private String _error;
+        private Boolean _disabled;
+
+        public ValidationRule(String name, String[] fields, Predicate<T> conditionFnc, Boolean disabled) {
+            this._name = name;
+            this._fields = fields;
+            this._conditionFnc = conditionFnc;
+            this._disabled = disabled;
+        }
+
+        public ValidationRule(String name, String[] fields, String error, Predicate<T> conditionFnc, Boolean disabled) {
+            this._name = name;
+            this._fields = fields;
+            this._error = error;
+            this._conditionFnc = conditionFnc;
+            this._disabled = disabled;
+        }
+
+        public String getName() {
+            return this._name;
+        }
+
+        public String[] getFields() {
+            return this._fields;
+        }
+
+        public String getError() {
+            return this._error;
+        }
+
+        public Boolean isDisabled() {
+            return this._disabled;
+        }
+
+        public Boolean hasError() {
+            return this._error != null && !this._error.isEmpty();
+        }
+
+        public ValidationResult Validate(T model) {
+            return this.CreateResult(model, this, this._conditionFnc);
+        }
+
+        public ValidationResult CreateResult(T model, ValidationRule rule, Predicate<T> isInvalidFnc) {
+            return isInvalidFnc.test(model) ?
+                    new ValidationResult(rule) : new ValidationResult();
+        }
+
+        public Boolean ExecuteCondition(T model) {
+            return this._conditionFnc.test(model);
+        }
+    }
+
+    public class Variable<TM, T> extends RuleItem {
+        private Function<TM, T> _valueFunc;
+
+        public Variable(String name, T value) {
+            this.setName(name);
+            this._valueFunc = (model) -> value;
+        }
+
+        public Variable(String name, Function<TM, T> valueFunc) {
+            this.setName(name);
+            this._valueFunc = valueFunc;
+        }
+
+        public T GetValue(TM model) {
+            return this._valueFunc.apply(model);
+        }
+    }
+
+    public class OpenValidationSummary {
+        private List<OpenValidationSummaryError> _errors = new ArrayList<>();
+        private List<String> _fields = new ArrayList<>();
+
+        public OpenValidationSummaryError[] getErrors() {
+            return this._errors.stream().toArray(OpenValidationSummaryError[]::new);
+        }
+
+        public String[] getFields() {
+            return this._errors.stream()
+                    .filter(e -> e.getFields() != null && e.getFields().length > 0)
+                    .flatMap(e -> Arrays.stream(e.getFields()))
+                    .toArray(String[]::new);
+        }
+
+
+        public void AppendError(String error, String[] fields) {
+            this._errors.add(new OpenValidationSummaryError(error, fields));
+        }
+
+        public Boolean hasErrors() {
+            return this._errors != null && this._errors.size() > 0;
+        }
+
+        public List<OpenValidationSummaryError> GeErrors() {
+            return (this.getErrors() != null) ?
+                    Arrays.stream(this.getErrors()).filter(distinctByKey(e -> e.getError())).collect(Collectors.toList()) : new ArrayList<>();
+        }
+    }
+
+    public class OpenValidationSummaryError {
+        private String _error;
+        private String[] _fields;
+
+        public OpenValidationSummaryError(String error, String[] fields) {
+            this._error = error;
+            this._fields = fields;
+        }
+
+        public String getError() {
+            return _error;
+        }
+
+        public String[] getFields() {
+            return this._fields;
+        }
+    }
+
+    //#end last functions
+
+    public class ValidationResult {
+        private ValidationRule _rule;
+
+        public ValidationResult(ValidationRule rule) {
+            this.setRule(rule);
+        }
+
+        public ValidationResult() {
+        }
+
+
+        public ValidationRule getRule() {
+            return _rule;
+        }
+
+        public void setRule(ValidationRule rule) {
+            _rule = rule;
+        }
+
+
+        public Boolean hasErrors() {
+            return (getError() != null);
+        }
+
+
+        public String getError() {
+            return (getRule() != null) ? getRule().getError() : null;
+        }
+    }
+
+    public class NumberComparator implements Comparator<Number> {
+        public int compare(Number a, Number b) {
+            if (a != null && b != null)
+                return new BigDecimal(a.toString()).compareTo(new BigDecimal(b.toString()));
+            else
+                return ((a == null && b != null) || (a != null && b == null)) ?
+                        -1 : 0;
+        }
     }
 
     //#end array functions
