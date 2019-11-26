@@ -1,5 +1,6 @@
 package functions;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.bag.openvalidation.HUMLFramework;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -198,5 +199,69 @@ public class FirstTests {
         Assertions.assertEquals(res[0], 1);
         Assertions.assertEquals(res[1], 2);
     }
+    
+    @Test
+    void first_integer_as_object()
+    {
+        Object input = new Integer[]{1,2,3};
 
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Integer);
+        Assertions.assertEquals((Integer)res, 1);
+    }
+
+    @Test
+    void first_int_list_as_object()
+    {
+        Object input = new ArrayList<Integer>();
+        ((List<Integer>)input).add(1);
+        ((List<Integer>)input).add(2);
+        ((List<Integer>)input).add(3);
+
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Integer);
+        Assertions.assertEquals((Integer)res, 1);
+    }
+    
+    @Test
+    void first_simpletype_int_array_as_object()
+    {
+        Object input = new int[]{1,2,3};
+
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Integer);
+        Assertions.assertEquals((Integer)res, 1);
+        
+        //item.getClass().getName().equalsIgnoreCase("[i")
+    }
+
+    @Test
+    @Disabled
+    void first_simpletype_boolean_array_as_object()
+    {
+        Object input = new boolean[]{true,true,false};
+
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Boolean);
+        Assertions.assertEquals((Boolean)res, true);
+        
+        //item.getClass().getName().equalsIgnoreCase("[z")
+    }
+
+    @Test
+    void first_boolean_array_as_object()
+    {
+        Object input = new Boolean[]{true,true,false};
+
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Boolean);
+        Assertions.assertEquals((Boolean)res, true);
+
+        //item.getClass().getName().equalsIgnoreCase("[z")
+    }
 }
