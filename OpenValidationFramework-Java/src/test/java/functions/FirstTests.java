@@ -126,6 +126,7 @@ public class FirstTests {
     }
 
     //lists
+    
     @Test
     void first_with_string_list()
     {
@@ -143,7 +144,7 @@ public class FirstTests {
         List<Person> input = new ArrayList<>(Arrays.asList(p1, p2));
         Function<Person, Boolean> function = p -> p.married;
         boolean result = huml.FIRST(input, function);
-        Assertions.assertEquals(false, result);
+        Assertions.assertFalse(result);
     }
 
     @Test
@@ -200,8 +201,9 @@ public class FirstTests {
         Assertions.assertEquals(res[1], 2);
     }
     
+    //region Arrays as Object
     @Test
-    void first_integer_as_object()
+    void first_integer_array_as_object()
     {
         Object input = new Integer[]{1,2,3};
 
@@ -211,6 +213,96 @@ public class FirstTests {
         Assertions.assertEquals((Integer)res, 1);
     }
 
+    @Test
+    void first_boolean_array_as_object()
+    {
+        Object input = new Boolean[]{true,true,false};
+
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Boolean);
+        Assertions.assertEquals(res, true);
+    }
+
+    @Test
+    void first_string_array_as_object()
+    {
+        Object input = new String[]{"name1", "name2", "name3"};
+
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof String);
+        Assertions.assertTrue(((String)res).equalsIgnoreCase("name1"));
+    }
+
+    @Test
+    void first_byte_array_as_object()
+    {
+        Object input = new Byte[]{1,2,3};
+
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Byte);
+        Assertions.assertEquals((Byte)res, Byte.valueOf("1"));
+    }
+
+    @Test
+    void first_short_array_as_object()
+    {
+        Object input = new Short[]{1,2,3};
+
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Short);
+        Assertions.assertEquals((Short)res, Short.valueOf("1"));
+    }
+
+    @Test
+    void first_long_array_as_object()
+    {
+        Object input = new Long[]{1l,2l,3l};
+
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Long);
+        Assertions.assertEquals((Long)res, 1l);
+    }
+
+    @Test
+    void first_float_array_as_object()
+    {
+        Object input = new Float[]{1f,2f,3f};
+
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Float);
+        Assertions.assertEquals((Float)res, 1f);
+    }
+
+    @Test
+    void first_double_array_as_object()
+    {
+        Object input = new Double[]{1d,2d,3d};
+
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Double);
+        Assertions.assertEquals((Double)res, 1d);
+    }
+
+    @Test
+    void first_char_array_as_object()
+    {
+        Object input = new Character[]{'a', 'b', 'c'};
+
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Character);
+        Assertions.assertEquals((Character) res, 'a');
+    }
+    //endregion
+    
+    //region List as Object
     @Test
     void first_int_list_as_object()
     {
@@ -224,44 +316,194 @@ public class FirstTests {
         Assertions.assertTrue(res instanceof Integer);
         Assertions.assertEquals((Integer)res, 1);
     }
+
+    @Test
+    void first_byte_list_as_object()
+    {
+        Object input = new ArrayList<Byte>();
+        ((List<Byte>)input).add(Byte.valueOf("1"));
+        ((List<Byte>)input).add(Byte.valueOf("2"));
+        ((List<Byte>)input).add(Byte.valueOf("3"));
+
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Byte);
+        Assertions.assertEquals((Byte)res, Byte.valueOf("1"));
+    }
+
+    @Test
+    void first_short_list_as_object()
+    {
+        Object input = new ArrayList<Short>();
+        ((List<Short>)input).add(Short.valueOf("1"));
+        ((List<Short>)input).add(Short.valueOf("2"));
+        ((List<Short>)input).add(Short.valueOf("3"));
+
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Short);
+        Assertions.assertEquals((Short)res, Short.valueOf("1"));
+    }
+
+    @Test
+    void first_long_list_as_object()
+    {
+        Object input = new ArrayList<Long>();
+        ((List<Long>)input).add(1l);
+        ((List<Long>)input).add(2l);
+        ((List<Long>)input).add(3l);
+
+        Object res = huml.FIRST(input);
+        
+
+        Assertions.assertTrue(res instanceof Long);
+        Assertions.assertEquals((Long)res, 1l);
+    }
+
+    @Test
+    void first_float_list_as_object()
+    {
+        Object input = new ArrayList<Float>();
+        ((List<Float>)input).add(1f);
+        ((List<Float>)input).add(2f);
+        ((List<Float>)input).add(3f);
+
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Float);
+        Assertions.assertEquals((Float)res, 1f);
+    }
+
+    @Test
+    void first_double_list_as_object()
+    {
+        Object input = new ArrayList<Double>();
+        ((List<Double>)input).add(1d);
+        ((List<Double>)input).add(2d);
+        ((List<Double>)input).add(3d);
+
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Double);
+        Assertions.assertEquals((Double)res, 1d);
+    }
+
+    @Test
+    void first_char_list_as_object()
+    {
+        Object input = new ArrayList<Character>();
+        ((List<Character>)input).add('a');
+        ((List<Character>)input).add('b');
+        ((List<Character>)input).add('c');
+
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Character);
+        Assertions.assertEquals((Character)res, 'a');
+    }
+
+    @Test
+    void first_boolean_list_as_object()
+    {
+        Object input = new ArrayList<Boolean>();
+        ((List<Boolean>)input).add(true);
+        ((List<Boolean>)input).add(false);
+        ((List<Boolean>)input).add(false);
+
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Boolean);
+        Assertions.assertEquals((Boolean)res, true);
+    }
+    //endregion
+    
+    
+    //region primitive arrays
+    @Test
+    void first_primitive_boolean_array_as_object()
+    {
+        Object input = new boolean[]{true,true,false};
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Boolean);
+        Assertions.assertEquals((Boolean)res, true);
+        
+        //item.getClass().getName().equalsIgnoreCase("[z")
+    }
+
+    @Test
+    void first_primitive_byte_array_as_object()
+    {
+        Object input = new byte[]{1,2,3};
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Byte);
+        Assertions.assertEquals((Byte)res, Byte.valueOf("1"));
+    }
+
+    @Test
+    void first_primitive_short_array_as_object()
+    {
+        Object input = new short[]{1,2,3};
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Short);
+        Assertions.assertEquals((Short)res, Short.valueOf("1"));
+    }
     
     @Test
-    void first_simpletype_int_array_as_object()
+    void first_primitive_int_array_as_object()
     {
         Object input = new int[]{1,2,3};
-
         Object res = huml.FIRST(input);
 
         Assertions.assertTrue(res instanceof Integer);
         Assertions.assertEquals((Integer)res, 1);
-        
+
         //item.getClass().getName().equalsIgnoreCase("[i")
     }
 
     @Test
-    @Disabled
-    void first_simpletype_boolean_array_as_object()
+    void first_primitive_long_array_as_object()
     {
-        Object input = new boolean[]{true,true,false};
-
+        Object input = new long[]{1l,2l,3l};
         Object res = huml.FIRST(input);
 
-        Assertions.assertTrue(res instanceof Boolean);
-        Assertions.assertEquals((Boolean)res, true);
-        
-        //item.getClass().getName().equalsIgnoreCase("[z")
+        Assertions.assertTrue(res instanceof Long);
+        Assertions.assertEquals((Long)res, 1l);
     }
 
     @Test
-    void first_boolean_array_as_object()
+    void first_primitive_float_array_as_object()
     {
-        Object input = new Boolean[]{true,true,false};
-
+        Object input = new float[]{1l,2l,3l};
         Object res = huml.FIRST(input);
 
-        Assertions.assertTrue(res instanceof Boolean);
-        Assertions.assertEquals((Boolean)res, true);
-
-        //item.getClass().getName().equalsIgnoreCase("[z")
+        Assertions.assertTrue(res instanceof Float);
+        Assertions.assertEquals((Float)res, 1f);
     }
+
+    @Test
+    void first_primitive_double_array_as_object()
+    {
+        Object input = new double[]{1d,2d,3d};
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Double);
+        Assertions.assertEquals((Double)res, 1d);
+    }
+
+    @Test
+    void first_primitive_char_array_as_object()
+    {
+        Object input = new char[]{'a','b','c'};
+        Object res = huml.FIRST(input);
+
+        Assertions.assertTrue(res instanceof Character);
+        Assertions.assertEquals((Character) res, 'a');
+    }
+    //endregion
+    
+    //todo enums, structs(?)
+    
 }

@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class HUMLFramework {
@@ -253,6 +254,10 @@ public class HUMLFramework {
         return ret[0];
     }
 
+    public int[] FIRST(int[] items, int amount) {
+        return items;  
+    }
+    
     public <T> T[] FIRST(T item, int amount) {
 
         if (item instanceof List) {
@@ -264,16 +269,80 @@ public class HUMLFramework {
                 return null;
 
         } else if (item.getClass().isArray()) {
-            if (item.getClass().getName().equalsIgnoreCase("[i"))//integer simpletype array
+            if (item.getClass().getName().equalsIgnoreCase("[i"))//integer primitive array
             {
                 List<Integer> lst = new ArrayList<>();
+                int n = 1;
                 for(int i : (int[])item){
                     lst.add(i);
+                    n++;
+                    if(n >= amount) break;
                 }
                 return take((List<T>) lst, amount);
-                
-            
-            } else {
+            }else if(item.getClass().getName().equalsIgnoreCase("[b")){//boolean primitive array
+                List<Byte> lst = new ArrayList<>();
+                int n = 1;
+                for(byte i : (byte[])item){
+                    lst.add(i);
+                    n++;
+                    if(n >= amount) break;
+                }
+                return take((List<T>) lst, amount);
+            }else if(item.getClass().getName().equalsIgnoreCase("[z")){//boolean primitive array
+                List<Boolean> lst = new ArrayList<>();
+                int n = 1;
+                for(boolean i : (boolean[])item){
+                    lst.add(i);
+                    n++;
+                    if(n >= amount) break;
+                }
+                return take((List<T>) lst, amount);
+            }else if(item.getClass().getName().equalsIgnoreCase("[s")){//boolean primitive array
+                List<Short> lst = new ArrayList<>();
+                int n = 1;
+                for(short i : (short[])item){
+                    lst.add(i);
+                    n++;
+                    if(n >= amount) break;
+                }
+                return take((List<T>) lst, amount);
+            }else if(item.getClass().getName().equalsIgnoreCase("[j")){//boolean primitive array
+                List<Long> lst = new ArrayList<>();
+                int n = 1;
+                for(long i : (long[])item){
+                    lst.add(i);
+                    n++;
+                    if(n >= amount) break;
+                }
+                return take((List<T>) lst, amount);
+            } else if(item.getClass().getName().equalsIgnoreCase("[f")){//boolean primitive array
+                List<Float> lst = new ArrayList<>();
+                int n = 1;
+                for(float i : (float[])item){
+                    lst.add(i);
+                    n++;
+                    if(n >= amount) break;
+                }
+                return take((List<T>) lst, amount);
+            }else if(item.getClass().getName().equalsIgnoreCase("[d")){//boolean primitive array
+                List<Double> lst = new ArrayList<>();
+                int n = 1;
+                for(double i : (double[])item){
+                    lst.add(i);
+                    n++;
+                    if(n >= amount) break;
+                }
+                return take((List<T>) lst, amount);
+            }else if(item.getClass().getName().equalsIgnoreCase("[c")){//boolean primitive array
+                List<Character> lst = new ArrayList<>();
+                int n = 1;
+                for(char i : (char[])item){
+                    lst.add(i);
+                    n++;
+                    if(n >= amount) break;
+                }
+                return take((List<T>) lst, amount);
+            }else {//non primitive
                 List<T> lst = Arrays.asList((T[]) item);
                 return take(lst, amount);
             }
@@ -294,6 +363,13 @@ public class HUMLFramework {
 
         return listToArray(lst.stream().limit((long) amount).collect(Collectors.toList()));
     }
+
+    public <T> T[] take(T[] lst, int amount) {
+        if (amount < 0)
+            return lst;
+
+        return Arrays.stream(lst).limit((long) amount).collect(Collectors.toSet()).toArray(lst);
+    }    
 
     public <T> T[] FIRST(List<T> items, int amount) {
         return listToArray(items.stream().limit((long) amount).collect(Collectors.toList()));

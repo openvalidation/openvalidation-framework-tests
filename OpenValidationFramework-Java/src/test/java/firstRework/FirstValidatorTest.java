@@ -15,7 +15,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class FirstTest {
+public class FirstValidatorTest {
 
     @Test
     public void SimpleTest(){
