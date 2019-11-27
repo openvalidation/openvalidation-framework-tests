@@ -214,6 +214,19 @@ public class FirstTests {
     }
 
     @Test
+    void first_integer_array_as_object_with_amount()
+    {
+        Object input = new Integer[]{1,2,3};
+
+        Object res = huml.FIRST(input, 2);
+
+        Assertions.assertTrue(res instanceof Integer[]);
+        Assertions.assertEquals(((Integer[])res).length, 2);
+        Assertions.assertEquals(((Integer[])res)[0], 1);
+        Assertions.assertEquals(((Integer[])res)[1], 2);
+    }
+
+    @Test
     void first_boolean_array_as_object()
     {
         Object input = new Boolean[]{true,true,false};
@@ -222,6 +235,19 @@ public class FirstTests {
 
         Assertions.assertTrue(res instanceof Boolean);
         Assertions.assertEquals(res, true);
+    }
+
+    @Test
+    void first_boolean_array_as_object_with_amount()
+    {
+        Object input = new Boolean[]{true,true,false};
+
+        Object res = huml.FIRST(input, 2);
+
+        Assertions.assertTrue(res instanceof Boolean[]);
+        Assertions.assertEquals(((Boolean[])res).length, 2);
+        Assertions.assertEquals(((Boolean[])res)[0], true);
+        Assertions.assertEquals(((Boolean[])res)[1], true);
     }
 
     @Test
@@ -236,6 +262,19 @@ public class FirstTests {
     }
 
     @Test
+    void first_string_array_as_object_with_amount()
+    {
+        Object input = new String[]{"name1", "name2", "name3"};
+
+        Object res = huml.FIRST(input,2);
+
+        Assertions.assertTrue(res instanceof String[]);
+        Assertions.assertEquals(((String[])res).length, 2);
+        Assertions.assertEquals(((String[])res)[0], "name1");
+        Assertions.assertEquals(((String[])res)[1], "name2");
+    }
+
+    @Test
     void first_byte_array_as_object()
     {
         Object input = new Byte[]{1,2,3};
@@ -244,6 +283,19 @@ public class FirstTests {
 
         Assertions.assertTrue(res instanceof Byte);
         Assertions.assertEquals((Byte)res, Byte.valueOf("1"));
+    }
+
+    @Test
+    void first_byte_array_as_object_with_amount()
+    {
+        Object input = new Byte[]{1,2,3};
+
+        Object res = huml.FIRST(input, 2);
+
+        Assertions.assertTrue(res instanceof Byte[]);
+        Assertions.assertEquals(((Byte[])res).length, 2);
+        Assertions.assertEquals(((Byte[])res)[0], Byte.valueOf("1"));
+        Assertions.assertEquals(((Byte[])res)[1], Byte.valueOf("2"));
     }
 
     @Test
@@ -258,6 +310,19 @@ public class FirstTests {
     }
 
     @Test
+    void first_short_array_as_object_with_amount()
+    {
+        Object input = new Short[]{1,2,3};
+
+        Object res = huml.FIRST(input, 2);
+
+        Assertions.assertTrue(res instanceof Short[]);
+        Assertions.assertEquals(((Short[])res).length, 2);
+        Assertions.assertEquals(((Short[])res)[0], Short.valueOf("1"));
+        Assertions.assertEquals(((Short[])res)[1], Short.valueOf("2"));
+    }
+
+    @Test
     void first_long_array_as_object()
     {
         Object input = new Long[]{1l,2l,3l};
@@ -266,6 +331,19 @@ public class FirstTests {
 
         Assertions.assertTrue(res instanceof Long);
         Assertions.assertEquals((Long)res, 1l);
+    }
+
+    @Test
+    void first_long_array_as_object_with_amount()
+    {
+        Object input = new Long[]{1l,2l,3l};
+
+        Object res = huml.FIRST(input, 2);
+
+        Assertions.assertTrue(res instanceof Long[]);
+        Assertions.assertEquals(((Long[])res).length, 2);
+        Assertions.assertEquals(((Long[])res)[0], 1l);
+        Assertions.assertEquals(((Long[])res)[1], 2l);
     }
 
     @Test
@@ -280,6 +358,19 @@ public class FirstTests {
     }
 
     @Test
+    void first_float_array_as_object_with_amount()
+    {
+        Object input = new Float[]{1f,2f,3f};
+
+        Object res = huml.FIRST(input, 2);
+
+        Assertions.assertTrue(res instanceof Float[]);
+        Assertions.assertEquals(((Float[])res).length, 2);
+        Assertions.assertEquals(((Float[])res)[0], 1f);
+        Assertions.assertEquals(((Float[])res)[1], 2f);
+    }
+
+    @Test
     void first_double_array_as_object()
     {
         Object input = new Double[]{1d,2d,3d};
@@ -291,6 +382,19 @@ public class FirstTests {
     }
 
     @Test
+    void first_double_array_as_object_with_amount()
+    {
+        Object input = new Double[]{1d,2d,3d};
+
+        Object res = huml.FIRST(input, 2);
+
+        Assertions.assertTrue(res instanceof Double[]);
+        Assertions.assertEquals(((Double[])res).length, 2);
+        Assertions.assertEquals(((Double[])res)[0], 1d);
+        Assertions.assertEquals(((Double[])res)[1], 2d);
+    }
+
+    @Test
     void first_char_array_as_object()
     {
         Object input = new Character[]{'a', 'b', 'c'};
@@ -299,6 +403,19 @@ public class FirstTests {
 
         Assertions.assertTrue(res instanceof Character);
         Assertions.assertEquals((Character) res, 'a');
+    }
+
+    @Test
+    void first_char_array_as_object_with_amount()
+    {
+        Object input = new Character[]{'a', 'b', 'c'};
+
+        Object res = huml.FIRST(input, 2);
+
+        Assertions.assertTrue(res instanceof Character[]);
+        Assertions.assertEquals(((Character[])res).length, 2);
+        Assertions.assertEquals(((Character[])res)[0], 'a');
+        Assertions.assertEquals(((Character[])res)[1], 'b');
     }
     //endregion
     
