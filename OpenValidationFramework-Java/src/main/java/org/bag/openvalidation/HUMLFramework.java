@@ -272,7 +272,7 @@ public class HUMLFramework {
             if (item.getClass().getName().equalsIgnoreCase("[i"))//integer primitive array
             {
                 List<Integer> lst = new ArrayList<>();
-                int n = 1;
+                int n = 0;
                 for(int i : (int[])item){
                     lst.add(i);
                     n++;
@@ -281,7 +281,7 @@ public class HUMLFramework {
                 return take((List<T>) lst, amount);
             }else if(item.getClass().getName().equalsIgnoreCase("[b")){//byte primitive array
                 List<Byte> lst = new ArrayList<>();
-                int n = 1;
+                int n = 0;
                 for(byte i : (byte[])item){
                     lst.add(i);
                     n++;
@@ -290,7 +290,7 @@ public class HUMLFramework {
                 return take((List<T>) lst, amount);
             }else if(item.getClass().getName().equalsIgnoreCase("[z")){//boolean primitive array
                 List<Boolean> lst = new ArrayList<>();
-                int n = 1;
+                int n = 0;
                 for(boolean i : (boolean[])item){
                     lst.add(i);
                     n++;
@@ -299,7 +299,7 @@ public class HUMLFramework {
                 return take((List<T>) lst, amount);
             }else if(item.getClass().getName().equalsIgnoreCase("[s")){//short primitive array
                 List<Short> lst = new ArrayList<>();
-                int n = 1;
+                int n = 0;
                 for(short i : (short[])item){
                     lst.add(i);
                     n++;
@@ -308,7 +308,7 @@ public class HUMLFramework {
                 return take((List<T>) lst, amount);
             }else if(item.getClass().getName().equalsIgnoreCase("[j")){//long primitive array
                 List<Long> lst = new ArrayList<>();
-                int n = 1;
+                int n = 0;
                 for(long i : (long[])item){
                     lst.add(i);
                     n++;
@@ -317,7 +317,7 @@ public class HUMLFramework {
                 return take((List<T>) lst, amount);
             } else if(item.getClass().getName().equalsIgnoreCase("[f")){//float primitive array
                 List<Float> lst = new ArrayList<>();
-                int n = 1;
+                int n = 0;
                 for(float i : (float[])item){
                     lst.add(i);
                     n++;
@@ -326,7 +326,7 @@ public class HUMLFramework {
                 return take((List<T>) lst, amount);
             }else if(item.getClass().getName().equalsIgnoreCase("[d")){//double primitive array
                 List<Double> lst = new ArrayList<>();
-                int n = 1;
+                int n = 0;
                 for(double i : (double[])item){
                     lst.add(i);
                     n++;
@@ -335,7 +335,7 @@ public class HUMLFramework {
                 return take((List<T>) lst, amount);
             }else if(item.getClass().getName().equalsIgnoreCase("[c")){//char primitive array
                 List<Character> lst = new ArrayList<>();
-                int n = 1;
+                int n = 0;
                 for(char i : (char[])item){
                     lst.add(i);
                     n++;
