@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
+// A note on 'suppress warnings for unchecked' - the point of those tests to handle input of unchecked inputs.
 
 public class FirstTests {
     private HUMLFramework huml = new HUMLFramework();
@@ -328,25 +329,25 @@ public class FirstTests {
     @Test
     void first_long_array_as_object()
     {
-        Object input = new Long[]{1l,2l,3l};
+        Object input = new Long[]{1L, 2L, 3L};
 
         Object res = huml.FIRST(input);
 
         Assertions.assertTrue(res instanceof Long);
-        Assertions.assertEquals((Long)res, 1l);
+        Assertions.assertEquals((Long)res, 1L);
     }
 
     @Test
     void first_long_array_as_object_with_amount()
     {
-        Object input = new Long[]{1l,2l,3l};
+        Object input = new Long[]{1L, 2L, 3L};
 
         Object res = huml.FIRST(input, 2);
 
         Assertions.assertTrue(res instanceof Long[]);
         Assertions.assertEquals(((Long[])res).length, 2);
-        Assertions.assertEquals(((Long[])res)[0], 1l);
-        Assertions.assertEquals(((Long[])res)[1], 2l);
+        Assertions.assertEquals(((Long[])res)[0], 1L);
+        Assertions.assertEquals(((Long[])res)[1], 2L);
     }
 
     @Test
@@ -423,6 +424,7 @@ public class FirstTests {
     //endregion
     
     //region List as Object
+    @SuppressWarnings("unchecked")
     @Test
     void first_int_list_as_object()
     {
@@ -437,6 +439,7 @@ public class FirstTests {
         Assertions.assertEquals((Integer)res, 1);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     void first_int_list_as_object_with_amount()
     {
@@ -453,6 +456,7 @@ public class FirstTests {
         Assertions.assertEquals(((Integer[])res)[1], 2);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     void first_byte_list_as_object()
     {
@@ -467,6 +471,7 @@ public class FirstTests {
         Assertions.assertEquals((Byte)res, Byte.valueOf("1"));
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     void first_byte_list_as_object_with_amount()
     {
@@ -483,6 +488,7 @@ public class FirstTests {
         Assertions.assertEquals(((Byte[])res)[1], Byte.valueOf("2"));
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     void first_short_list_as_object()
     {
@@ -497,7 +503,8 @@ public class FirstTests {
         Assertions.assertEquals((Short)res, Short.valueOf("1"));
     }
 
-        @Test
+    @SuppressWarnings("unchecked")
+    @Test
     void first_short_list_as_object_with_amount()
     {
         Object input = new ArrayList<Short>();
@@ -513,38 +520,41 @@ public class FirstTests {
         Assertions.assertEquals(((Short[])res)[1], Short.valueOf("2"));
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     void first_long_list_as_object()
     {
         Object input = new ArrayList<Long>();
-        ((List<Long>)input).add(1l);
-        ((List<Long>)input).add(2l);
-        ((List<Long>)input).add(3l);
+        ((List<Long>)input).add(1L);
+        ((List<Long>)input).add(2L);
+        ((List<Long>)input).add(3L);
 
         Object res = huml.FIRST(input);
         
 
         Assertions.assertTrue(res instanceof Long);
-        Assertions.assertEquals((Long)res, 1l);
+        Assertions.assertEquals((Long)res, 1L);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     void first_long_list_as_object_with_amount()
     {
         Object input = new ArrayList<Long>();
-        ((List<Long>)input).add(1l);
-        ((List<Long>)input).add(2l);
-        ((List<Long>)input).add(3l);
+        ((List<Long>)input).add(1L);
+        ((List<Long>)input).add(2L);
+        ((List<Long>)input).add(3L);
 
         Object res = huml.FIRST(input, 2);
 
 
         Assertions.assertTrue(res instanceof Long[]);
         Assertions.assertEquals(((Long[])res).length, 2);
-        Assertions.assertEquals(((Long[])res)[0], 1l);
-        Assertions.assertEquals(((Long[])res)[1], 2l);
+        Assertions.assertEquals(((Long[])res)[0], 1L);
+        Assertions.assertEquals(((Long[])res)[1], 2L);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     void first_float_list_as_object()
     {
@@ -559,6 +569,7 @@ public class FirstTests {
         Assertions.assertEquals((Float)res, 1f);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     void first_float_list_as_object_with_amount()
     {
@@ -575,6 +586,7 @@ public class FirstTests {
         Assertions.assertEquals(((Float[])res)[1], 2f);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     void first_double_list_as_object()
     {
@@ -589,7 +601,8 @@ public class FirstTests {
         Assertions.assertEquals((Double)res, 1d);
     }
 
-     @Test
+    @SuppressWarnings("unchecked")
+    @Test
     void first_double_list_as_object_with_amount()
     {
         Object input = new ArrayList<Double>();
@@ -605,6 +618,7 @@ public class FirstTests {
         Assertions.assertEquals(((Double[])res)[1], 2d);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     void first_char_list_as_object()
     {
@@ -619,6 +633,7 @@ public class FirstTests {
         Assertions.assertEquals((Character)res, 'a');
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     void first_char_list_as_object_with_amount()
     {
@@ -635,6 +650,7 @@ public class FirstTests {
         Assertions.assertEquals(((Character[])res)[1], 'b');
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     void first_boolean_list_as_object()
     {
@@ -646,9 +662,10 @@ public class FirstTests {
         Object res = huml.FIRST(input);
 
         Assertions.assertTrue(res instanceof Boolean);
-        Assertions.assertEquals((Boolean)res, true);
+        Assertions.assertEquals(res, true);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     void first_boolean_list_as_object_with_amount()
     {
@@ -675,9 +692,7 @@ public class FirstTests {
         Object res = huml.FIRST(input);
 
         Assertions.assertTrue(res instanceof Boolean);
-        Assertions.assertEquals((Boolean)res, true);
-        
-        //item.getClass().getName().equalsIgnoreCase("[z")
+        Assertions.assertEquals(res, true);
     }
 
     @Test
@@ -690,8 +705,6 @@ public class FirstTests {
         Assertions.assertEquals(((Boolean[])res).length, 2);
         Assertions.assertEquals(((Boolean[])res)[0], true);
         Assertions.assertEquals(((Boolean[])res)[1], true);
-
-        //item.getClass().getName().equalsIgnoreCase("[z")
     }
 
     @Test
@@ -746,8 +759,6 @@ public class FirstTests {
 
         Assertions.assertTrue(res instanceof Integer);
         Assertions.assertEquals((Integer)res, 1);
-
-        //item.getClass().getName().equalsIgnoreCase("[i")
     }
 
     @Test
@@ -760,30 +771,28 @@ public class FirstTests {
         Assertions.assertEquals(((Integer[])res).length, 2);
         Assertions.assertEquals(((Integer[])res)[0], 1);
         Assertions.assertEquals(((Integer[])res)[1], 2);
-
-        //item.getClass().getName().equalsIgnoreCase("[i")
     }
 
     @Test
     void first_primitive_long_array_as_object()
     {
-        Object input = new long[]{1l,2l,3l};
+        Object input = new long[]{1L, 2L, 3L};
         Object res = huml.FIRST(input);
 
         Assertions.assertTrue(res instanceof Long);
-        Assertions.assertEquals((Long)res, 1l);
+        Assertions.assertEquals((Long)res, 1L);
     }
 
     @Test
     void first_primitive_long_array_as_object_with_amount()
     {
-        Object input = new long[]{1l,2l,3l};
+        Object input = new long[]{1L, 2L, 3L};
         Object res = huml.FIRST(input, 2);
 
         Assertions.assertTrue(res instanceof Long[]);
         Assertions.assertEquals(((Long[])res).length, 2);
-        Assertions.assertEquals(((Long[])res)[0], 1l);
-        Assertions.assertEquals(((Long[])res)[1], 2l);
+        Assertions.assertEquals(((Long[])res)[0], 1L);
+        Assertions.assertEquals(((Long[])res)[1], 2L);
     }
 
     @Test
