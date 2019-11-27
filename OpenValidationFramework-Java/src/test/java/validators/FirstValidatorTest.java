@@ -1,8 +1,12 @@
-package firstRework;
+package validators;
 
 import org.bag.openvalidation.*;
-import org.bag.openvalidation.firstTestModel.Model;
+import org.bag.model.FirstTestModel;
 
+import org.bag.openvalidation.validator.Validator;
+import org.bag.openvalidation.validator.ValidatorFuncOnVarOnFunc;
+import org.bag.openvalidation.validator.ValidatorWithAmount;
+import org.bag.openvalidation.validator.ValidatorWithAmountWithMultipleVars;
 import org.junit.jupiter.api.Test;
 
 
@@ -21,7 +25,7 @@ public class FirstValidatorTest {
         lst.add(2);
         lst.add(3);
 
-        Model model = new Model();
+        FirstTestModel model = new FirstTestModel();
         model.setNumbers(lst);
 
         Validator val = new Validator();
@@ -42,7 +46,7 @@ public class FirstValidatorTest {
         lst.add(2);
         lst.add(3);
 
-        Model model = new Model();
+        FirstTestModel model = new FirstTestModel();
         model.setNumbers(lst);
 
         ValidatorWithAmount val = new ValidatorWithAmount();
@@ -63,7 +67,7 @@ public class FirstValidatorTest {
         lst.add(2);
         lst.add(3);
 
-        Model model = new Model();
+        FirstTestModel model = new FirstTestModel();
         model.setNumbers(lst);
 
         ValidatorWithAmountWithMultipleVars val = new ValidatorWithAmountWithMultipleVars();
@@ -84,7 +88,7 @@ public class FirstValidatorTest {
         lst.add(2);
         lst.add(3);
 
-        Model model = new Model();
+        FirstTestModel model = new FirstTestModel();
         model.setNumbers(lst);
 
         ValidatorFuncOnVarOnFunc val = new ValidatorFuncOnVarOnFunc();
