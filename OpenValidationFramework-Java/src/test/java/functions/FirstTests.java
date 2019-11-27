@@ -435,6 +435,22 @@ public class FirstTests {
     }
 
     @Test
+    void first_int_list_as_object_with_amount()
+    {
+        Object input = new ArrayList<Integer>();
+        ((List<Integer>)input).add(1);
+        ((List<Integer>)input).add(2);
+        ((List<Integer>)input).add(3);
+
+        Object res = huml.FIRST(input, 2);
+
+        Assertions.assertTrue(res instanceof Integer[]);
+        Assertions.assertEquals(((Integer[])res).length, 2);
+        Assertions.assertEquals(((Integer[])res)[0], 1);
+        Assertions.assertEquals(((Integer[])res)[1], 2);
+    }
+
+    @Test
     void first_byte_list_as_object()
     {
         Object input = new ArrayList<Byte>();
@@ -449,6 +465,22 @@ public class FirstTests {
     }
 
     @Test
+    void first_byte_list_as_object_with_amount()
+    {
+        Object input = new ArrayList<Byte>();
+        ((List<Byte>)input).add(Byte.valueOf("1"));
+        ((List<Byte>)input).add(Byte.valueOf("2"));
+        ((List<Byte>)input).add(Byte.valueOf("3"));
+
+        Object res = huml.FIRST(input, 2);
+
+        Assertions.assertTrue(res instanceof Byte[]);
+        Assertions.assertEquals(((Byte[])res).length, 2);
+        Assertions.assertEquals(((Byte[])res)[0], Byte.valueOf("1"));
+        Assertions.assertEquals(((Byte[])res)[1], Byte.valueOf("2"));
+    }
+
+    @Test
     void first_short_list_as_object()
     {
         Object input = new ArrayList<Short>();
@@ -460,6 +492,22 @@ public class FirstTests {
 
         Assertions.assertTrue(res instanceof Short);
         Assertions.assertEquals((Short)res, Short.valueOf("1"));
+    }
+
+        @Test
+    void first_short_list_as_object_with_amount()
+    {
+        Object input = new ArrayList<Short>();
+        ((List<Short>)input).add(Short.valueOf("1"));
+        ((List<Short>)input).add(Short.valueOf("2"));
+        ((List<Short>)input).add(Short.valueOf("3"));
+
+        Object res = huml.FIRST(input, 2);
+
+        Assertions.assertTrue(res instanceof Short[]);
+        Assertions.assertEquals(((Short[])res).length, 2);
+        Assertions.assertEquals(((Short[])res)[0], Short.valueOf("1"));
+        Assertions.assertEquals(((Short[])res)[1], Short.valueOf("2"));
     }
 
     @Test
@@ -478,6 +526,23 @@ public class FirstTests {
     }
 
     @Test
+    void first_long_list_as_object_with_amount()
+    {
+        Object input = new ArrayList<Long>();
+        ((List<Long>)input).add(1l);
+        ((List<Long>)input).add(2l);
+        ((List<Long>)input).add(3l);
+
+        Object res = huml.FIRST(input, 2);
+
+
+        Assertions.assertTrue(res instanceof Long[]);
+        Assertions.assertEquals(((Long[])res).length, 2);
+        Assertions.assertEquals(((Long[])res)[0], 1l);
+        Assertions.assertEquals(((Long[])res)[1], 2l);
+    }
+
+    @Test
     void first_float_list_as_object()
     {
         Object input = new ArrayList<Float>();
@@ -492,6 +557,22 @@ public class FirstTests {
     }
 
     @Test
+    void first_float_list_as_object_with_amount()
+    {
+        Object input = new ArrayList<Float>();
+        ((List<Float>)input).add(1f);
+        ((List<Float>)input).add(2f);
+        ((List<Float>)input).add(3f);
+
+        Object res = huml.FIRST(input, 2);
+
+        Assertions.assertTrue(res instanceof Float[]);
+        Assertions.assertEquals(((Float[])res).length, 2);
+        Assertions.assertEquals(((Float[])res)[0], 1f);
+        Assertions.assertEquals(((Float[])res)[1], 2f);
+    }
+
+    @Test
     void first_double_list_as_object()
     {
         Object input = new ArrayList<Double>();
@@ -503,6 +584,22 @@ public class FirstTests {
 
         Assertions.assertTrue(res instanceof Double);
         Assertions.assertEquals((Double)res, 1d);
+    }
+
+     @Test
+    void first_double_list_as_object_with_amount()
+    {
+        Object input = new ArrayList<Double>();
+        ((List<Double>)input).add(1d);
+        ((List<Double>)input).add(2d);
+        ((List<Double>)input).add(3d);
+
+        Object res = huml.FIRST(input, 2);
+
+        Assertions.assertTrue(res instanceof Double[]);
+        Assertions.assertEquals(((Double[])res).length, 2);
+        Assertions.assertEquals(((Double[])res)[0], 1d);
+        Assertions.assertEquals(((Double[])res)[1], 2d);
     }
 
     @Test
@@ -520,6 +617,22 @@ public class FirstTests {
     }
 
     @Test
+    void first_char_list_as_object_with_amount()
+    {
+        Object input = new ArrayList<Character>();
+        ((List<Character>)input).add('a');
+        ((List<Character>)input).add('b');
+        ((List<Character>)input).add('c');
+
+        Object res = huml.FIRST(input, 2);
+
+        Assertions.assertTrue(res instanceof Character[]);
+        Assertions.assertEquals(((Character[])res).length, 2);
+        Assertions.assertEquals(((Character[])res)[0], 'a');
+        Assertions.assertEquals(((Character[])res)[1], 'b');
+    }
+
+    @Test
     void first_boolean_list_as_object()
     {
         Object input = new ArrayList<Boolean>();
@@ -531,6 +644,22 @@ public class FirstTests {
 
         Assertions.assertTrue(res instanceof Boolean);
         Assertions.assertEquals((Boolean)res, true);
+    }
+
+    @Test
+    void first_boolean_list_as_object_with_amount()
+    {
+        Object input = new ArrayList<Boolean>();
+        ((List<Boolean>)input).add(true);
+        ((List<Boolean>)input).add(false);
+        ((List<Boolean>)input).add(false);
+
+        Object res = huml.FIRST(input, 2);
+
+        Assertions.assertTrue(res instanceof Boolean[]);
+        Assertions.assertEquals(((Boolean[])res).length, 2);
+        Assertions.assertEquals(((Boolean[])res)[0], true);
+        Assertions.assertEquals(((Boolean[])res)[1], false);
     }
     //endregion
     
