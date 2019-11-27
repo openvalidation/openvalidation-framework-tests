@@ -1,9 +1,6 @@
 package firstRework;
 
-import org.bag.openvalidation.HUMLFramework;
-import org.bag.openvalidation.Validator;
-import org.bag.openvalidation.ValidatorWithAmount;
-import org.bag.openvalidation.ValidatorWithAmountWithMultipleVars;
+import org.bag.openvalidation.*;
 import org.bag.openvalidation.firstTestModel.Model;
 
 import org.junit.jupiter.api.Test;
@@ -79,4 +76,26 @@ public class FirstValidatorTest {
         assertThat(result.getErrors()[0], notNullValue());
         assertThat(result.getErrors()[0].getError(), is("error"));
     }
+
+    @Test
+    public void FuncOnVarOnFunc() {
+        List<Integer> lst = new ArrayList<>();
+        lst.add(1);
+        lst.add(2);
+        lst.add(3);
+
+        Model model = new Model();
+        model.setNumbers(lst);
+
+        ValidatorFuncOnVarOnFunc val = new ValidatorFuncOnVarOnFunc();
+        HUMLFramework.OpenValidationSummary result =  val.validate(model);
+
+        assertThat(result, notNullValue());
+        assertThat(result.hasErrors(), is(true));
+        assertThat(result.getErrors(), notNullValue());
+        assertThat(result.getErrors().length, is(1));
+        assertThat(result.getErrors()[0], notNullValue());
+        assertThat(result.getErrors()[0].getError(), is("error"));
+    }
+
 }
