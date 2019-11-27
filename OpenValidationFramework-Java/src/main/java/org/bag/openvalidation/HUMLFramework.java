@@ -279,7 +279,7 @@ public class HUMLFramework {
                     if(n >= amount) break;
                 }
                 return take((List<T>) lst, amount);
-            }else if(item.getClass().getName().equalsIgnoreCase("[b")){//boolean primitive array
+            }else if(item.getClass().getName().equalsIgnoreCase("[b")){//byte primitive array
                 List<Byte> lst = new ArrayList<>();
                 int n = 1;
                 for(byte i : (byte[])item){
@@ -297,7 +297,7 @@ public class HUMLFramework {
                     if(n >= amount) break;
                 }
                 return take((List<T>) lst, amount);
-            }else if(item.getClass().getName().equalsIgnoreCase("[s")){//boolean primitive array
+            }else if(item.getClass().getName().equalsIgnoreCase("[s")){//short primitive array
                 List<Short> lst = new ArrayList<>();
                 int n = 1;
                 for(short i : (short[])item){
@@ -306,7 +306,7 @@ public class HUMLFramework {
                     if(n >= amount) break;
                 }
                 return take((List<T>) lst, amount);
-            }else if(item.getClass().getName().equalsIgnoreCase("[j")){//boolean primitive array
+            }else if(item.getClass().getName().equalsIgnoreCase("[j")){//long primitive array
                 List<Long> lst = new ArrayList<>();
                 int n = 1;
                 for(long i : (long[])item){
@@ -315,7 +315,7 @@ public class HUMLFramework {
                     if(n >= amount) break;
                 }
                 return take((List<T>) lst, amount);
-            } else if(item.getClass().getName().equalsIgnoreCase("[f")){//boolean primitive array
+            } else if(item.getClass().getName().equalsIgnoreCase("[f")){//float primitive array
                 List<Float> lst = new ArrayList<>();
                 int n = 1;
                 for(float i : (float[])item){
@@ -324,7 +324,7 @@ public class HUMLFramework {
                     if(n >= amount) break;
                 }
                 return take((List<T>) lst, amount);
-            }else if(item.getClass().getName().equalsIgnoreCase("[d")){//boolean primitive array
+            }else if(item.getClass().getName().equalsIgnoreCase("[d")){//double primitive array
                 List<Double> lst = new ArrayList<>();
                 int n = 1;
                 for(double i : (double[])item){
@@ -333,7 +333,7 @@ public class HUMLFramework {
                     if(n >= amount) break;
                 }
                 return take((List<T>) lst, amount);
-            }else if(item.getClass().getName().equalsIgnoreCase("[c")){//boolean primitive array
+            }else if(item.getClass().getName().equalsIgnoreCase("[c")){//char primitive array
                 List<Character> lst = new ArrayList<>();
                 int n = 1;
                 for(char i : (char[])item){
