@@ -17,6 +17,10 @@ public class HUMLFramework {
 
     //VALIDATION METHODS
 
+    public static <T> Object asObject(T item){
+        return (Object)item;
+    }
+    
     public static <T> T[] listToArray(List<T> list) {
         if (list == null || list.size() < 1) return null;
 
@@ -248,13 +252,19 @@ public class HUMLFramework {
         return listToArray(out);
     }
 
-    public <T> T FIRST(T item) {
+//    public <T> T FIRST(T item) {
+//        T[] ret = FIRST(item, -1);
+//
+//        return ret[0];
+//    }
+
+    public <T> T FIRST(Object item) {
         T[] ret = FIRST(item, -1);
 
         return ret[0];
     }
 
-    public <T> T[] FIRST(T item, double amnt) {
+    public <T> T[] FIRST(Object item, double amnt) {
         int amount = (int)amnt;
 
         if (item instanceof List) {
@@ -293,7 +303,8 @@ public class HUMLFramework {
                     n++;
                     if(n >= amount) break;
                 }
-                return take((List<T>) lst, amount);
+                T[] nlst = take((List<T>) lst, amount);
+                return nlst;
             }else if(item.getClass().getName().equalsIgnoreCase("[s")){//short primitive array
                 List<Short> lst = new ArrayList<>();
                 int n = 0;
@@ -379,30 +390,30 @@ public class HUMLFramework {
     public <T> T FIRST(T[] array) {
         return atPosition(array, 0);
     }
-//
-//    public <T, R> R FIRST(List<T> list, Function<? super T, ? extends R> propertySelector) {
-//        return FIRST(listToArray(list), propertySelector);
-//    }
-//
-//    public <T, R> R FIRST(T[] array, Function<? super T, ? extends R> propertySelector) {
-//        if (array == null || array.length < 1)
-//            return null;
-//
-//        List<R> out = Arrays.stream(array).map(propertySelector).collect(Collectors.toList());
-//        return FIRST(out);
-//    }
-//
-//    public <T, R> R[] FIRST(List<T> list, Function<? super T, ? extends R> propertySelector, int amount) {
-//        return FIRST(listToArray(list), propertySelector, amount);
-//    }
-//
-//    public <T, R> R[] FIRST(T[] array, Function<? super T, ? extends R> propertySelector, int amount) {
-//        if (array == null || array.length < 1)
-//            return null;
-//
-//        List<R> out = Arrays.stream(array).map(propertySelector).collect(Collectors.toList());
-//        return FIRST(out, amount);
-//    }
+    
+    public <T, R> R FIRST(List<T> list, Function<? super T, ? extends R> propertySelector) {
+        return FIRST(listToArray(list), propertySelector);
+    }
+
+    public <T, R> R FIRST(T[] array, Function<? super T, ? extends R> propertySelector) {
+        if (array == null || array.length < 1)
+            return null;
+
+        List<R> out = Arrays.stream(array).map(propertySelector).collect(Collectors.toList());
+        return FIRST(out);
+    }
+
+    public <T, R> R[] FIRST(List<T> list, Function<? super T, ? extends R> propertySelector, int amount) {
+        return FIRST(listToArray(list), propertySelector, amount);
+    }
+
+    public <T, R> R[] FIRST(T[] array, Function<? super T, ? extends R> propertySelector, int amount) {
+        if (array == null || array.length < 1)
+            return null;
+
+        List<R> out = Arrays.stream(array).map(propertySelector).collect(Collectors.toList());
+        return FIRST(out, amount);
+    }
 //
 //    public <T> T[] FIRST(T[] array, int amount) {
 //        if (array == null || array.length < 1 || amount < 0) return null;
@@ -424,7 +435,6 @@ public class HUMLFramework {
 //    }
 
 //    public <T extends List<?>> T[] FIRST(T item, int amount) {
-//        return null;
 //        List<T> a = ((List) item);
 //
 //        return listToArray(((List<?>)item).stream().limit((long) amount).collect(Collectors.toList()));

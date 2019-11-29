@@ -1,21 +1,25 @@
-package org.bag.openvalidation.validator;
+package org.bag.openvalidation.validator.primitives;
 
 import org.bag.openvalidation.HUMLFramework;
 
 import org.bag.model.primitives.BooleanModel;
 
 
-public class ValidatorWithSimpleBoolArray implements HUMLFramework.IOpenValidator
+public class BooleanArrayValidator implements HUMLFramework.IOpenValidator
 {
     public HUMLFramework huml;
-
-    public ValidatorWithSimpleBoolArray()
+    
+    public BooleanArrayValidator()
     {
         huml = new HUMLFramework();
 
+        //todo jgeske 27.11.19 circumvent casting this to an Object.
+        HUMLFramework.Variable X = huml.CreateVariable("X", (BooleanModel model) -> 
+            huml.FIRST(model.getBooleans())
+        
+        );
 
-
-        HUMLFramework.Variable X = huml.CreateVariable("X", (BooleanModel model) -> huml.FIRST(model.getBooleans()));
+        //HUMLFramework.Variable X = huml.CreateVariable("X", (BooleanModel model) -> huml.FIRST(Y.GetValue(model)));
 
         huml.appendRule("",
            new String[]{ "booleans" },
