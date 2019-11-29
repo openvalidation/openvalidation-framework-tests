@@ -18,7 +18,7 @@ public class ValidatorFuncOnVarOnFunc implements HUMLFramework.IOpenValidator
 //            Object o = huml.FIRST(numbers, 2.0);
 //            return o;
 //            return huml.FIRST(numbers, 2.0);
-            huml.FIRST(model.getNumbers(), 2)
+            huml.FIRST(model.getNumbers(), 2.0)
         );
 
         HUMLFramework.Variable X = huml.CreateVariable("X", (FirstTestModel model) -> huml.FIRST(array.GetValue(model)));
