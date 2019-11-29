@@ -17,6 +17,7 @@ public class DoubleValidatorTest {
 
         DoubleModel model = new DoubleModel();
         model.setDoubles(doubles);
+        model.setValue(1.0);
 
         DoubleArrayValidator val = new DoubleArrayValidator();
         HUMLFramework.OpenValidationSummary result =  val.validate(model);

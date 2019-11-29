@@ -17,6 +17,7 @@ public class FloatValidatorTest {
 
         FloatModel model = new FloatModel();
         model.setFloats(floats);
+        model.setValue(1f);
 
         FloatArrayValidator val = new FloatArrayValidator();
         HUMLFramework.OpenValidationSummary result =  val.validate(model);

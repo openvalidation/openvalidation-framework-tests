@@ -22,7 +22,7 @@ public class ByteArrayValidator implements HUMLFramework.IOpenValidator
         huml.appendRule("",
            new String[]{ "bytes" },
            "error",
-           (ByteModel model) -> huml.EQUALS(X.GetValue(model), Byte.valueOf("1")),
+           (ByteModel model) -> huml.EQUALS(X.GetValue(model), model.getValue()),
            false
         );
 

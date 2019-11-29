@@ -22,7 +22,7 @@ public class IntArrayValidator implements HUMLFramework.IOpenValidator
         huml.appendRule("",
            new String[]{ "ints" },
            "error",
-           (IntModel model) -> huml.EQUALS(X.GetValue(model), 1),
+           (IntModel model) -> huml.EQUALS(X.GetValue(model), model.getValue()),
            false
         );
 

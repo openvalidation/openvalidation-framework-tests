@@ -22,7 +22,7 @@ public class ShortArrayValidator implements HUMLFramework.IOpenValidator
         huml.appendRule("",
            new String[]{ "shorts" },
            "error",
-           (ShortModel model) -> huml.EQUALS(X.GetValue(model), Short.valueOf("1")),
+           (ShortModel model) -> huml.EQUALS(X.GetValue(model), model.getValue()),
            false
         );
 

@@ -17,6 +17,7 @@ public class ShortValidatorTest {
 
         ShortModel model = new ShortModel();
         model.setShorts(shorts);
+        model.setValue(Short.valueOf("1"));
 
         ShortArrayValidator val = new ShortArrayValidator();
         HUMLFramework.OpenValidationSummary result =  val.validate(model);

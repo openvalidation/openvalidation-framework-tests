@@ -17,6 +17,7 @@ public class IntValidatorTest {
 
         IntModel model = new IntModel();
         model.setInts(ints);
+        model.setValue(1);
 
         IntArrayValidator val = new IntArrayValidator();
         HUMLFramework.OpenValidationSummary result =  val.validate(model);

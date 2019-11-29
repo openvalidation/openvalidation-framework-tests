@@ -23,7 +23,7 @@ public class BooleanArrayValidator implements HUMLFramework.IOpenValidator
         huml.appendRule("",
            new String[]{ "booleans" },
            "error",
-           (BooleanModel model) -> huml.EQUALS(X.GetValue(model), true),
+           (BooleanModel model) -> huml.EQUALS(X.GetValue(model), model.isValue()),
            false
         );
 

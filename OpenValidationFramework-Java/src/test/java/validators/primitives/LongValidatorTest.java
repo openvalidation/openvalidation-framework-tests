@@ -17,6 +17,7 @@ public class LongValidatorTest {
 
         LongModel model = new LongModel();
         model.setLongs(longs);
+        model.setValue(1l);
 
         LongArrayValidator val = new LongArrayValidator();
         HUMLFramework.OpenValidationSummary result =  val.validate(model);

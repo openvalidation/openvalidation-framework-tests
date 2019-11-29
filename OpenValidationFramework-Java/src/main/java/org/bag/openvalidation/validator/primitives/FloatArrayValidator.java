@@ -22,7 +22,7 @@ public class FloatArrayValidator implements HUMLFramework.IOpenValidator
         huml.appendRule("",
            new String[]{ "floats" },
            "error",
-           (FloatModel model) -> huml.EQUALS(X.GetValue(model), 1f),
+           (FloatModel model) -> huml.EQUALS(X.GetValue(model), model.getValue()),
            false
         );
 
