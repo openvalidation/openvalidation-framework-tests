@@ -22,7 +22,7 @@ public class DoubleArrayValidator implements HUMLFramework.IOpenValidator
         huml.appendRule("",
            new String[]{ "doubles" },
            "error",
-           (DoubleModel model) -> huml.EQUALS(X.GetValue(model), 1.0),
+           (DoubleModel model) -> huml.EQUALS(X.GetValue(model), model.getValue()),
            false
         );
 

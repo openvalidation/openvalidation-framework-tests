@@ -21,6 +21,7 @@ public class BooleanValidatorTest {
 
         BooleanModel model = new BooleanModel();
         model.setBooleans(booleans);
+        model.setValue(true);
 
         BooleanArrayValidator val = new BooleanArrayValidator();
         HUMLFramework.OpenValidationSummary result =  val.validate(model);

@@ -19,6 +19,7 @@ public class ByteValidatorTest {
 
         ByteModel model = new ByteModel();
         model.setBytes(bytes);
+        model.setValue(Byte.valueOf("1"));
 
         ByteArrayValidator val = new ByteArrayValidator();
         HUMLFramework.OpenValidationSummary result =  val.validate(model);

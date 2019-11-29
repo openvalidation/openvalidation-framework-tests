@@ -22,7 +22,7 @@ public class CharArrayValidator implements HUMLFramework.IOpenValidator
         huml.appendRule("",
            new String[]{ "chars" },
            "error",
-           (CharModel model) -> huml.EQUALS(X.GetValue(model), 'a'),
+           (CharModel model) -> huml.EQUALS(X.GetValue(model), model.getValue()),
            false
         );
 

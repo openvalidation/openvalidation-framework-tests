@@ -17,6 +17,7 @@ public class CharValidatorTest {
 
         CharModel model = new CharModel();
         model.setChars(chars);
+        model.setValue('a');
 
         CharArrayValidator val = new CharArrayValidator();
         HUMLFramework.OpenValidationSummary result =  val.validate(model);

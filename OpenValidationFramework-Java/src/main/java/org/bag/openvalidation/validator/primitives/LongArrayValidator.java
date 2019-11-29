@@ -22,7 +22,7 @@ public class LongArrayValidator implements HUMLFramework.IOpenValidator
         huml.appendRule("",
            new String[]{ "longs" },
            "error",
-           (LongModel model) -> huml.EQUALS(X.GetValue(model), 1l),
+           (LongModel model) -> huml.EQUALS(X.GetValue(model), model.getValue()),
            false
         );
 
