@@ -1,28 +1,28 @@
 package org.bag.openvalidation.validator.primitives;
 
-import org.bag.model.primitives.ShortModel;
+import org.bag.model.primitives.ByteModel;
 import org.bag.openvalidation.HUMLFramework;
 
 
-public class ShortArrayValidator implements HUMLFramework.IOpenValidator
+public class ByteArrayValidator implements HUMLFramework.IOpenValidator
 {
     public HUMLFramework huml;
     
-    public ShortArrayValidator()
+    public ByteArrayValidator()
     {
         huml = new HUMLFramework();
 
-        HUMLFramework.Variable X = huml.CreateVariable("X", (ShortModel model) -> 
-            huml.FIRST(model.getShorts())
+        HUMLFramework.Variable X = huml.CreateVariable("X", (ByteModel model) -> 
+            huml.FIRST(model.getBytes())
         
         );
 
         //HUMLFramework.Variable X = huml.CreateVariable("X", (BooleanModel model) -> huml.FIRST(Y.GetValue(model)));
 
         huml.appendRule("",
-           new String[]{ "shorts" },
+           new String[]{ "bytes" },
            "error",
-           (ShortModel model) -> huml.EQUALS(X.GetValue(model), Short.valueOf("1")),
+           (ByteModel model) -> huml.EQUALS(X.GetValue(model), Byte.valueOf("1")),
            false
         );
 
@@ -34,13 +34,13 @@ public class ShortArrayValidator implements HUMLFramework.IOpenValidator
         return "";
     }
 
-    public HUMLFramework.OpenValidationSummary validate(ShortModel model) {
+    public HUMLFramework.OpenValidationSummary validate(ByteModel model) {
         return huml.validate(model);
     }
 
     @Override
     public HUMLFramework.OpenValidationSummary validate(Object model) {
-        return this.validate((ShortModel) model);
+        return this.validate((ByteModel) model);
     }
 
     

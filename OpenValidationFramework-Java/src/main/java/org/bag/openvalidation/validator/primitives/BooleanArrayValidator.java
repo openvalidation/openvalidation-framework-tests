@@ -13,7 +13,6 @@ public class BooleanArrayValidator implements HUMLFramework.IOpenValidator
     {
         huml = new HUMLFramework();
 
-        //todo jgeske 27.11.19 circumvent casting this to an Object.
         HUMLFramework.Variable X = huml.CreateVariable("X", (BooleanModel model) -> 
             huml.FIRST(model.getBooleans())
         

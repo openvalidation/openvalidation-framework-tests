@@ -1,28 +1,28 @@
 package org.bag.openvalidation.validator.primitives;
 
-import org.bag.model.primitives.ShortModel;
+import org.bag.model.primitives.IntModel;
 import org.bag.openvalidation.HUMLFramework;
 
 
-public class ShortArrayValidator implements HUMLFramework.IOpenValidator
+public class IntArrayValidator implements HUMLFramework.IOpenValidator
 {
     public HUMLFramework huml;
     
-    public ShortArrayValidator()
+    public IntArrayValidator()
     {
         huml = new HUMLFramework();
 
-        HUMLFramework.Variable X = huml.CreateVariable("X", (ShortModel model) -> 
-            huml.FIRST(model.getShorts())
+        HUMLFramework.Variable X = huml.CreateVariable("X", (IntModel model) -> 
+            huml.FIRST(model.getInts())
         
         );
 
         //HUMLFramework.Variable X = huml.CreateVariable("X", (BooleanModel model) -> huml.FIRST(Y.GetValue(model)));
 
         huml.appendRule("",
-           new String[]{ "shorts" },
+           new String[]{ "ints" },
            "error",
-           (ShortModel model) -> huml.EQUALS(X.GetValue(model), Short.valueOf("1")),
+           (IntModel model) -> huml.EQUALS(X.GetValue(model), 1),
            false
         );
 
@@ -34,13 +34,13 @@ public class ShortArrayValidator implements HUMLFramework.IOpenValidator
         return "";
     }
 
-    public HUMLFramework.OpenValidationSummary validate(ShortModel model) {
+    public HUMLFramework.OpenValidationSummary validate(IntModel model) {
         return huml.validate(model);
     }
 
     @Override
     public HUMLFramework.OpenValidationSummary validate(Object model) {
-        return this.validate((ShortModel) model);
+        return this.validate((IntModel) model);
     }
 
     
