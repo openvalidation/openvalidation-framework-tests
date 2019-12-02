@@ -12,7 +12,7 @@ import java.util.List;
 
 
 // ONE_OF is being phased out in favour of EXACTLY_ONE_OF
-@Disabled
+//@Disabled
 public class OneOfTests {
     //ONE OF
     @Test

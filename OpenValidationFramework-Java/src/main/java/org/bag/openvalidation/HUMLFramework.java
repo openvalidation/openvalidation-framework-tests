@@ -16,10 +16,6 @@ public class HUMLFramework {
     private NumberComparator _numComp = new NumberComparator();
 
     //VALIDATION METHODS
-
-    public static <T> Object asObject(T item){
-        return (Object)item;
-    }
     
     public static <T> T[] listToArray(List<T> list) {
         if (list == null || list.size() < 1) return null;
