@@ -272,84 +272,85 @@ public class HUMLFramework {
                 return null;
 
         } else if (item.getClass().isArray()) {
-            if (item.getClass().getName().equalsIgnoreCase("[i"))//integer primitive array
-            {
-                List<Integer> lst = new ArrayList<>();
-                int n = 0;
-                for(int i : (int[])item){
-                    lst.add(i);
-                    n++;
-                    if(n >= amount) break;
-                }
-                return take((List<T>) lst, amount, 0);
-            }else if(item.getClass().getName().equalsIgnoreCase("[b")){//byte primitive array
-                List<Byte> lst = new ArrayList<>();
-                int n = 0;
-                for(byte i : (byte[])item){
-                    lst.add(i);
-                    n++;
-                    if(n >= amount) break;
-                }
-                return take((List<T>) lst, amount, 0);
-            }else if(item.getClass().getName().equalsIgnoreCase("[z")){//boolean primitive array
-                List<Boolean> lst = new ArrayList<>();
-                int n = 0;
-                for(boolean i : (boolean[])item){
-                    lst.add(i);
-                    n++;
-                    if(n >= amount) break;
-                }
-                T[] nlst = take((List<T>) lst, amount, 0);
-                return nlst;
-            }else if(item.getClass().getName().equalsIgnoreCase("[s")){//short primitive array
-                List<Short> lst = new ArrayList<>();
-                int n = 0;
-                for(short i : (short[])item){
-                    lst.add(i);
-                    n++;
-                    if(n >= amount) break;
-                }
-                return take((List<T>) lst, amount, 0);
-            }else if(item.getClass().getName().equalsIgnoreCase("[j")){//long primitive array
-                List<Long> lst = new ArrayList<>();
-                int n = 0;
-                for(long i : (long[])item){
-                    lst.add(i);
-                    n++;
-                    if(n >= amount) break;
-                }
-                return take((List<T>) lst, amount, 0);
-            } else if(item.getClass().getName().equalsIgnoreCase("[f")){//float primitive array
-                List<Float> lst = new ArrayList<>();
-                int n = 0;
-                for(float i : (float[])item){
-                    lst.add(i);
-                    n++;
-                    if(n >= amount) break;
-                }
-                return take((List<T>) lst, amount, 0);
-            }else if(item.getClass().getName().equalsIgnoreCase("[d")){//double primitive array
-                List<Double> lst = new ArrayList<>();
-                int n = 0;
-                for(double i : (double[])item){
-                    lst.add(i);
-                    n++;
-                    if(n >= amount) break;
-                }
-                return take((List<T>) lst, amount, 0);
-            }else if(item.getClass().getName().equalsIgnoreCase("[c")){//char primitive array
-                List<Character> lst = new ArrayList<>();
-                int n = 0;
-                for(char i : (char[])item){
-                    lst.add(i);
-                    n++;
-                    if(n >= amount) break;
-                }
-                return take((List<T>) lst, amount, 0);
-            }else {//non primitive
-                List<T> lst = Arrays.asList((T[]) item);
-                return take(lst, amount, 0);
-            }
+            return takeFromArray(item, amount, 0);
+//            if (item.getClass().getName().equalsIgnoreCase("[i"))//integer primitive array
+//            {
+//                List<Integer> lst = new ArrayList<>();
+//                int n = 0;
+//                for(int i : (int[])item){
+//                    lst.add(i);
+//                    n++;
+//                    if(n >= amount) break;
+//                }
+//                return take((List<T>) lst, amount, 0);
+//            }else if(item.getClass().getName().equalsIgnoreCase("[b")){//byte primitive array
+//                List<Byte> lst = new ArrayList<>();
+//                int n = 0;
+//                for(byte i : (byte[])item){
+//                    lst.add(i);
+//                    n++;
+//                    if(n >= amount) break;
+//                }
+//                return take((List<T>) lst, amount, 0);
+//            }else if(item.getClass().getName().equalsIgnoreCase("[z")){//boolean primitive array
+//                List<Boolean> lst = new ArrayList<>();
+//                int n = 0;
+//                for(boolean i : (boolean[])item){
+//                    lst.add(i);
+//                    n++;
+//                    if(n >= amount) break;
+//                }
+//                T[] nlst = take((List<T>) lst, amount, 0);
+//                return nlst;
+//            }else if(item.getClass().getName().equalsIgnoreCase("[s")){//short primitive array
+//                List<Short> lst = new ArrayList<>();
+//                int n = 0;
+//                for(short i : (short[])item){
+//                    lst.add(i);
+//                    n++;
+//                    if(n >= amount) break;
+//                }
+//                return take((List<T>) lst, amount, 0);
+//            }else if(item.getClass().getName().equalsIgnoreCase("[j")){//long primitive array
+//                List<Long> lst = new ArrayList<>();
+//                int n = 0;
+//                for(long i : (long[])item){
+//                    lst.add(i);
+//                    n++;
+//                    if(n >= amount) break;
+//                }
+//                return take((List<T>) lst, amount, 0);
+//            } else if(item.getClass().getName().equalsIgnoreCase("[f")){//float primitive array
+//                List<Float> lst = new ArrayList<>();
+//                int n = 0;
+//                for(float i : (float[])item){
+//                    lst.add(i);
+//                    n++;
+//                    if(n >= amount) break;
+//                }
+//                return take((List<T>) lst, amount, 0);
+//            }else if(item.getClass().getName().equalsIgnoreCase("[d")){//double primitive array
+//                List<Double> lst = new ArrayList<>();
+//                int n = 0;
+//                for(double i : (double[])item){
+//                    lst.add(i);
+//                    n++;
+//                    if(n >= amount) break;
+//                }
+//                return take((List<T>) lst, amount, 0);
+//            }else if(item.getClass().getName().equalsIgnoreCase("[c")){//char primitive array
+//                List<Character> lst = new ArrayList<>();
+//                int n = 0;
+//                for(char i : (char[])item){
+//                    lst.add(i);
+//                    n++;
+//                    if(n >= amount) break;
+//                }
+//                return take((List<T>) lst, amount, 0);
+//            }else {//non primitive
+//                List<T> lst = Arrays.asList((T[]) item);
+//                return take(lst, amount, 0);
+//            }
 
 
 //            if (Array.getLength(item) > 0)
@@ -461,86 +462,8 @@ public class HUMLFramework {
                 return null;
 
         } else if (item.getClass().isArray()) {
-            if (item.getClass().getName().equalsIgnoreCase("[i"))//integer primitive array
-            {
-                List<Integer> lst = new ArrayList<>();
-                int n = 0;
-                for(int i : (int[])item){
-                    lst.add(i);
-                    n++;
-                    if(n >= amount) break;
-                }
-                return take((List<T>) lst, amount, -1);
-            }else if(item.getClass().getName().equalsIgnoreCase("[b")){//byte primitive array
-                List<Byte> lst = new ArrayList<>();
-                int n = 0;
-                for(byte i : (byte[])item){
-                    lst.add(i);
-                    n++;
-                    if(n >= amount) break;
-                }
-                return take((List<T>) lst, amount, -1);
-            }else if(item.getClass().getName().equalsIgnoreCase("[z")){//boolean primitive array
-                List<Boolean> lst = new ArrayList<>();
-                int n = 0;
-                for(boolean i : (boolean[])item){
-                    lst.add(i);
-                    n++;
-                    if(n >= amount) break;
-                }
-                T[] nlst = take((List<T>) lst, amount, -1);
-                return nlst;
-            }else if(item.getClass().getName().equalsIgnoreCase("[s")){//short primitive array
-                List<Short> lst = new ArrayList<>();
-                int n = 0;
-                for(short i : (short[])item){
-                    lst.add(i);
-                    n++;
-                    if(n >= amount) break;
-                }
-                return take((List<T>) lst, amount, -1);
-            }else if(item.getClass().getName().equalsIgnoreCase("[j")){//long primitive array
-                List<Long> lst = new ArrayList<>();
-                int n = 0;
-                for(long i : (long[])item){
-                    lst.add(i);
-                    n++;
-                    if(n >= amount) break;
-                }
-                return take((List<T>) lst, amount, -1);
-            } else if(item.getClass().getName().equalsIgnoreCase("[f")){//float primitive array
-                List<Float> lst = new ArrayList<>();
-                int n = 0;
-                for(float i : (float[])item){
-                    lst.add(i);
-                    n++;
-                    if(n >= amount) break;
-                }
-                return take((List<T>) lst, amount, -1);
-            }else if(item.getClass().getName().equalsIgnoreCase("[d")){//double primitive array
-                List<Double> lst = new ArrayList<>();
-                int n = 0;
-                for(double i : (double[])item){
-                    lst.add(i);
-                    n++;
-                    if(n >= amount) break;
-                }
-                return take((List<T>) lst, amount, -1);
-            }else if(item.getClass().getName().equalsIgnoreCase("[c")){//char primitive array
-                List<Character> lst = new ArrayList<>();
-                int n = 0;
-                for(char i : (char[])item){
-                    lst.add(i);
-                    n++;
-                    if(n >= amount) break;
-                }
-                return take((List<T>) lst, amount, -1);
-            }else {//non primitive
-                List<T> lst = Arrays.asList((T[]) item);
-                return take(lst, amount, -1);
-            }
-
-
+            
+            return takeFromArray(item, amount, -1);
 //            if (Array.getLength(item) > 0)
 //                return (T) Array.get(item, 0);
 //            else
@@ -548,6 +471,73 @@ public class HUMLFramework {
         }
 
         return null;
+    }
+    
+    public <T> T[] takeFromArray(Object item, int amount, int from){
+        int amnt = amount < 0 ? 1 : amount;
+        
+        if (item.getClass().getName().equalsIgnoreCase("[i"))//integer primitive array
+        {
+            List<Integer> lst = new ArrayList<>();
+            int n = from < 0 ?((int[])item).length : from+amnt;
+            for(int i = amnt > 0 && from >= 0? n-amnt : n-1; i<n;i++){
+                lst.add(((int[])item)[i]);
+            }
+            return take((List<T>) lst, amount, from);
+        }else if(item.getClass().getName().equalsIgnoreCase("[b")){//byte primitive array
+            List<Byte> lst = new ArrayList<>();
+            int n = from < 0 ?((byte[])item).length : from+amnt;
+            for(int i = amnt > 0 && from >= 0? n-amnt : n-1; i<n;i++){
+                lst.add(((byte[])item)[i]);
+            }
+            return take((List<T>) lst, amount, from);
+        }else if(item.getClass().getName().equalsIgnoreCase("[z")){//boolean primitive array
+            List<Boolean> lst = new ArrayList<>();
+            int n = from < 0 ?((boolean[])item).length : from+amnt;
+            for(int i = amnt > 0 && from >= 0? n-amnt : n-1; i<n;i++){
+                lst.add(((boolean[])item)[i]);
+            }
+            T[] nlst = take((List<T>) lst, amount, -1);
+            return nlst;
+        }else if(item.getClass().getName().equalsIgnoreCase("[s")){//short primitive array
+            List<Short> lst = new ArrayList<>();
+            int n = from < 0 ?((short[])item).length : from+amnt;
+            for(int i = amnt > 0 && from >= 0? n-amnt : n-1; i<n;i++){
+                lst.add(((short[])item)[i]);
+            }
+            return take((List<T>) lst, amount, from);
+        }else if(item.getClass().getName().equalsIgnoreCase("[j")){//long primitive array
+            List<Long> lst = new ArrayList<>();
+            int n = from < 0 ?((long[])item).length : from+amnt;
+            for(int i = amnt > 0 && from >= 0? n-amnt : n-1; i<n;i++){
+                lst.add(((long[])item)[i]);
+            }
+            return take((List<T>) lst, amount, from);
+        } else if(item.getClass().getName().equalsIgnoreCase("[f")){//float primitive array
+            List<Float> lst = new ArrayList<>();
+            int n = from < 0 ?((float[])item).length : from+amnt;
+            for(int i = amnt > 0 && from >= 0? n-amnt : n-1; i<n;i++){
+                lst.add(((float[])item)[i]);
+            }
+            return take((List<T>) lst, amount, from);
+        }else if(item.getClass().getName().equalsIgnoreCase("[d")){//double primitive array
+            List<Double> lst = new ArrayList<>();
+            int n = from < 0 ?((double[])item).length : from+amnt;
+            for(int i = amnt > 0 && from >= 0? n-amnt : n-1; i<n;i++){
+                lst.add(((double[])item)[i]);
+            }
+            return take((List<T>) lst, amount, from);
+        }else if(item.getClass().getName().equalsIgnoreCase("[c")){//char primitive array
+            List<Character> lst = new ArrayList<>();
+            int n = from < 0 ?((char[])item).length : from+amnt;
+            for(int i = amnt > 0 && from >= 0? n-amnt : n-1; i<n;i++){
+                lst.add(((char[])item)[i]);
+            }
+            return take((List<T>) lst, amount, from);
+        }else {//non primitive
+            List<T> lst = Arrays.asList((T[]) item);
+            return take(lst, amount, -1);
+        }
     }
     
     public <T> T LAST(List<T> list) {

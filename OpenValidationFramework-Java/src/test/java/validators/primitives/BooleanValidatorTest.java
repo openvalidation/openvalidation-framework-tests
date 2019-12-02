@@ -36,7 +36,6 @@ public class BooleanValidatorTest {
     }
 
     @Test
-    @Disabled
     public void LastTest(){
         boolean[] booleans = new boolean[]{false,false,true};
 
