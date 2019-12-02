@@ -11,24 +11,49 @@ public class BooleanArrayValidator implements HUMLFramework.IOpenValidator
     
     public BooleanArrayValidator()
     {
-        huml = new HUMLFramework();
 
-        HUMLFramework.Variable X = huml.CreateVariable("X", (BooleanModel model) -> 
-            huml.FIRST(model.getBooleans())
-        
+    }
+    
+    public static BooleanArrayValidator createFirstBooleanValidator(){
+        BooleanArrayValidator arrayValidator = new BooleanArrayValidator();
+        arrayValidator.huml = new HUMLFramework();
+
+        HUMLFramework.Variable X = arrayValidator.huml.CreateVariable("X", (BooleanModel model) ->
+                arrayValidator.huml.FIRST(model.getBooleans())
+
         );
 
         //HUMLFramework.Variable X = huml.CreateVariable("X", (BooleanModel model) -> huml.FIRST(Y.GetValue(model)));
 
-        huml.appendRule("",
-           new String[]{ "booleans" },
-           "error",
-           (BooleanModel model) -> huml.EQUALS(X.GetValue(model), model.isValue()),
-           false
+        arrayValidator.huml.appendRule("",
+                new String[]{ "booleans" },
+                "error",
+                (BooleanModel model) -> arrayValidator.huml.EQUALS(X.GetValue(model), model.isValue()),
+                false
+        );
+        
+        return arrayValidator;
+    }
+
+    public static BooleanArrayValidator createLastBooleanValidator(){
+        BooleanArrayValidator arrayValidator = new BooleanArrayValidator();
+        arrayValidator.huml = new HUMLFramework();
+
+        HUMLFramework.Variable X = arrayValidator.huml.CreateVariable("X", (BooleanModel model) ->
+                arrayValidator.huml.LAST(model.getBooleans())
+
         );
 
+        //HUMLFramework.Variable X = huml.CreateVariable("X", (BooleanModel model) -> huml.FIRST(Y.GetValue(model)));
 
+        arrayValidator.huml.appendRule("",
+                new String[]{ "booleans" },
+                "error",
+                (BooleanModel model) -> arrayValidator.huml.EQUALS(X.GetValue(model), model.isValue()),
+                false
+        );
 
+        return arrayValidator;
     }
 
     public String getValidatorID(){
