@@ -1,14 +1,9 @@
 package validators.primitives;
 
-import org.bag.model.FirstTestModel;
 import org.bag.model.primitives.BooleanModel;
 import org.bag.openvalidation.HUMLFramework;
 import org.bag.openvalidation.validator.primitives.BooleanArrayValidator;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;

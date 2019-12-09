@@ -14,14 +14,33 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ByteValidatorTest {
 
     @Test
-    public void SimpleTest(){
+    public void FirstTest(){
         byte[] bytes = new byte[]{1,2,3};
 
         ByteModel model = new ByteModel();
         model.setBytes(bytes);
         model.setValue(Byte.valueOf("1"));
 
-        ByteArrayValidator val = new ByteArrayValidator();
+        ByteArrayValidator val = ByteArrayValidator.createFirstByteArrayValidator();
+        HUMLFramework.OpenValidationSummary result =  val.validate(model);
+
+        assertThat(result, notNullValue());
+        assertThat(result.hasErrors(), is(true));
+        assertThat(result.getErrors(), notNullValue());
+        assertThat(result.getErrors().length, is(1));
+        assertThat(result.getErrors()[0], notNullValue());
+        assertThat(result.getErrors()[0].getError(), is("error"));
+    }
+
+    @Test
+    public void LastTest(){
+        byte[] bytes = new byte[]{1,2,3};
+
+        ByteModel model = new ByteModel();
+        model.setBytes(bytes);
+        model.setValue(Byte.valueOf("3"));
+
+        ByteArrayValidator val = ByteArrayValidator.createLastByteArrayValidator();
         HUMLFramework.OpenValidationSummary result =  val.validate(model);
 
         assertThat(result, notNullValue());

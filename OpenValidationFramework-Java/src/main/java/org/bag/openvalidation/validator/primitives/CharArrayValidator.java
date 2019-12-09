@@ -8,26 +8,54 @@ public class CharArrayValidator implements HUMLFramework.IOpenValidator
 {
     public HUMLFramework huml;
     
-    public CharArrayValidator()
+    private CharArrayValidator(){
+        
+    }
+    
+    public static CharArrayValidator createFirstCharArrayValidator()
     {
-        huml = new HUMLFramework();
+        CharArrayValidator validator = new CharArrayValidator();
+        validator.huml = new HUMLFramework();
 
-        HUMLFramework.Variable X = huml.CreateVariable("X", (CharModel model) -> 
-            huml.FIRST(model.getChars())
+        HUMLFramework.Variable X = validator.huml.CreateVariable("X", (CharModel model) -> 
+            validator.huml.FIRST(model.getChars())
         
         );
 
-        //HUMLFramework.Variable X = huml.CreateVariable("X", (CharModel model) -> huml.FIRST(Y.GetValue(model)));
+        //HUMLFramework.Variable X = validator.huml.CreateVariable("X", (CharModel model) -> validator.huml.FIRST(Y.GetValue(model)));
 
-        huml.appendRule("",
+        validator.huml.appendRule("",
            new String[]{ "chars" },
            "error",
-           (CharModel model) -> huml.EQUALS(X.GetValue(model), model.getValue()),
+           (CharModel model) -> validator.huml.EQUALS(X.GetValue(model), model.getValue()),
            false
         );
 
 
+        return validator;
+    }
 
+    public static CharArrayValidator createLastCharArrayValidator()
+    {
+        CharArrayValidator validator = new CharArrayValidator();
+        validator.huml = new HUMLFramework();
+
+        HUMLFramework.Variable X = validator.huml.CreateVariable("X", (CharModel model) ->
+                validator.huml.LAST(model.getChars())
+
+        );
+
+        //HUMLFramework.Variable X = validator.huml.CreateVariable("X", (CharModel model) -> validator.huml.FIRST(Y.GetValue(model)));
+
+        validator.huml.appendRule("",
+                new String[]{ "chars" },
+                "error",
+                (CharModel model) -> validator.huml.EQUALS(X.GetValue(model), model.getValue()),
+                false
+        );
+
+
+        return validator;
     }
 
     public String getValidatorID(){

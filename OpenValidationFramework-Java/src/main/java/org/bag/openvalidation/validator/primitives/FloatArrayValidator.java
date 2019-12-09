@@ -7,27 +7,53 @@ import org.bag.openvalidation.HUMLFramework;
 public class FloatArrayValidator implements HUMLFramework.IOpenValidator
 {
     public HUMLFramework huml;
-    
-    public FloatArrayValidator()
-    {
-        huml = new HUMLFramework();
 
-        HUMLFramework.Variable X = huml.CreateVariable("X", (FloatModel model) -> 
-            huml.FIRST(model.getFloats())
+    private FloatArrayValidator(){}
+    
+    public static FloatArrayValidator createFirstFloatArrayValidator()
+    {
+        FloatArrayValidator validator = new FloatArrayValidator();
+        validator.huml = new HUMLFramework();
+
+        HUMLFramework.Variable X = validator.huml.CreateVariable("X", (FloatModel model) ->
+                validator.huml.FIRST(model.getFloats())
         
         );
 
         //HUMLFramework.Variable X = huml.CreateVariable("X", (FloatModel model) -> huml.FIRST(Y.GetValue(model)));
 
-        huml.appendRule("",
+        validator.huml.appendRule("",
            new String[]{ "floats" },
            "error",
-           (FloatModel model) -> huml.EQUALS(X.GetValue(model), model.getValue()),
+           (FloatModel model) -> validator.huml.EQUALS(X.GetValue(model), model.getValue()),
            false
         );
 
 
+        return validator;
+    }
 
+    public static FloatArrayValidator createLastFloatArrayValidator()
+    {
+        FloatArrayValidator validator = new FloatArrayValidator();
+        validator.huml = new HUMLFramework();
+
+        HUMLFramework.Variable X = validator.huml.CreateVariable("X", (FloatModel model) ->
+                validator.huml.LAST(model.getFloats())
+
+        );
+
+        //HUMLFramework.Variable X = huml.CreateVariable("X", (FloatModel model) -> huml.FIRST(Y.GetValue(model)));
+
+        validator.huml.appendRule("",
+                new String[]{ "floats" },
+                "error",
+                (FloatModel model) -> validator.huml.EQUALS(X.GetValue(model), model.getValue()),
+                false
+        );
+
+
+        return validator;
     }
 
     public String getValidatorID(){
