@@ -280,6 +280,9 @@ public class HUMLFramework {
     public <T> T[] take(List<T> lst, int amount, int from) {
         if (amount < 0)
             return listToArray(lst);
+        
+        if(from < 0)
+            return  listToArray(lst.subList(lst.size() - amount, lst.size()));
 
         return listToArray(lst.stream().limit((long) amount).collect(Collectors.toList()));
     }
@@ -359,10 +362,10 @@ public class HUMLFramework {
 
     //last
 
-    public <T> T LAST(Object item) {//todo implement!
+    public <T> T LAST(Object item) {
         T[] ret = LAST(item, -1);
 
-        return ret[0];
+        return ret[ret.length-1];
     }
 
     public <T> T[] LAST(Object item, double amnt) {

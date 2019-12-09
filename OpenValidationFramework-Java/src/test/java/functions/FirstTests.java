@@ -861,7 +861,4 @@ public class FirstTests {
         Assertions.assertEquals(((Character[])res)[1], 'b');
     }
     //endregion
-    
-    //todo enums, structs(?)
-    
 }
