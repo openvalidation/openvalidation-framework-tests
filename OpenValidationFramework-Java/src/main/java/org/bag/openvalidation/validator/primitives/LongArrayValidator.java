@@ -7,27 +7,53 @@ import org.bag.openvalidation.HUMLFramework;
 public class LongArrayValidator implements HUMLFramework.IOpenValidator
 {
     public HUMLFramework huml;
-    
-    public LongArrayValidator()
-    {
-        huml = new HUMLFramework();
 
-        HUMLFramework.Variable X = huml.CreateVariable("X", (LongModel model) -> 
-            huml.FIRST(model.getLongs())
+    private LongArrayValidator(){}
+    
+    public static LongArrayValidator createFirstLongArrayValidator()
+    {
+        LongArrayValidator validator = new LongArrayValidator();
+        validator.huml = new HUMLFramework();
+
+        HUMLFramework.Variable X = validator.huml.CreateVariable("X", (LongModel model) ->
+                validator.huml.FIRST(model.getLongs())
         
         );
 
         //HUMLFramework.Variable X = huml.CreateVariable("X", (BooleanModel model) -> huml.FIRST(Y.GetValue(model)));
 
-        huml.appendRule("",
+        validator.huml.appendRule("",
            new String[]{ "longs" },
            "error",
-           (LongModel model) -> huml.EQUALS(X.GetValue(model), model.getValue()),
+           (LongModel model) -> validator.huml.EQUALS(X.GetValue(model), model.getValue()),
            false
         );
 
 
+        return validator;
+    }
 
+    public static LongArrayValidator createLastLongArrayValidator()
+    {
+        LongArrayValidator validator = new LongArrayValidator();
+        validator.huml = new HUMLFramework();
+
+        HUMLFramework.Variable X = validator.huml.CreateVariable("X", (LongModel model) ->
+                validator.huml.LAST(model.getLongs())
+
+        );
+
+        //HUMLFramework.Variable X = huml.CreateVariable("X", (BooleanModel model) -> huml.FIRST(Y.GetValue(model)));
+
+        validator.huml.appendRule("",
+                new String[]{ "longs" },
+                "error",
+                (LongModel model) -> validator.huml.EQUALS(X.GetValue(model), model.getValue()),
+                false
+        );
+
+
+        return validator;
     }
 
     public String getValidatorID(){

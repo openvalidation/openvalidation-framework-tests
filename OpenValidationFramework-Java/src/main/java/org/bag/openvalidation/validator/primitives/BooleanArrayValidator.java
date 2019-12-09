@@ -9,7 +9,7 @@ public class BooleanArrayValidator implements HUMLFramework.IOpenValidator
 {
     public HUMLFramework huml;
     
-    public BooleanArrayValidator()
+    private BooleanArrayValidator()
     {
 
     }

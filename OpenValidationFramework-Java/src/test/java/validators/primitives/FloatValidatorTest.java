@@ -12,14 +12,33 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class FloatValidatorTest {
 
     @Test
-    public void SimpleTest(){
+    public void FirstTest(){
         float[] floats = new float[]{1f,2f,3f};
 
         FloatModel model = new FloatModel();
         model.setFloats(floats);
         model.setValue(1f);
 
-        FloatArrayValidator val = new FloatArrayValidator();
+        FloatArrayValidator val = FloatArrayValidator.createFirstFloatArrayValidator();
+        HUMLFramework.OpenValidationSummary result =  val.validate(model);
+
+        assertThat(result, notNullValue());
+        assertThat(result.hasErrors(), is(true));
+        assertThat(result.getErrors(), notNullValue());
+        assertThat(result.getErrors().length, is(1));
+        assertThat(result.getErrors()[0], notNullValue());
+        assertThat(result.getErrors()[0].getError(), is("error"));
+    }
+
+    @Test
+    public void LastTest(){
+        float[] floats = new float[]{1f,2f,3f};
+
+        FloatModel model = new FloatModel();
+        model.setFloats(floats);
+        model.setValue(3f);
+
+        FloatArrayValidator val = FloatArrayValidator.createLastFloatArrayValidator();
         HUMLFramework.OpenValidationSummary result =  val.validate(model);
 
         assertThat(result, notNullValue());

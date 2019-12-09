@@ -379,10 +379,6 @@ public class HUMLFramework {
         } else if (item.getClass().isArray()) {
 
             return takeFromArray(item, amount, -1);
-//            if (Array.getLength(item) > 0)
-//                return (T) Array.get(item, 0);
-//            else
-//                return null;
         }
 
         return null;
