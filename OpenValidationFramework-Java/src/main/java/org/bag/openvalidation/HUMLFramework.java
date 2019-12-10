@@ -492,7 +492,7 @@ public class HUMLFramework {
             return listToArray(lst);
 
         if(from < 0)
-            return  listToArray(lst.subList(lst.size() - amount, lst.size()));
+            return  listToArray(lst.subList((lst.size() - amount) >= 0 ? (lst.size() - amount) : 0, lst.size()));
 
         return listToArray(lst.stream().limit((long) amount).collect(Collectors.toList()));
     }
