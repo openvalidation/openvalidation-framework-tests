@@ -55,4 +55,25 @@ public class LastValidatorTest {
         assertThat(result.getErrors()[0].getError(), is("error"));
     }
 
+    @Test
+    public void FuncOnVarOnFunc_large_list() {
+        List<Integer> lst = new ArrayList<>();
+        for(int i = 0; i < 10000; i++)
+            lst.add(i);
+        lst.add(1);
+
+        LastTestModel model = new LastTestModel();
+        model.setNumbers(lst);
+
+        ValidatorLastFuncOnVarOnFunc val = new ValidatorLastFuncOnVarOnFunc();
+        HUMLFramework.OpenValidationSummary result =  val.validate(model);
+
+        assertThat(result, notNullValue());
+        assertThat(result.hasErrors(), is(true));
+        assertThat(result.getErrors(), notNullValue());
+        assertThat(result.getErrors().length, is(1));
+        assertThat(result.getErrors()[0], notNullValue());
+        assertThat(result.getErrors()[0].getError(), is("error"));
+    }
+
 }

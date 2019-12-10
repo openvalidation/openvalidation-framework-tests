@@ -38,6 +38,27 @@ public class FirstValidatorTest {
         assertThat(result.getErrors()[0], notNullValue());
         assertThat(result.getErrors()[0].getError(), is("error"));
     }
+    
+    @Test
+    public void FirstTest_large_array(){
+        List<Integer> lst = new ArrayList<>();
+        lst.add(1);
+        for(int i = 0;i<10000;i++)
+            lst.add(i);
+
+        FirstTestModel model = new FirstTestModel();
+        model.setNumbers(lst);
+
+        Validator val = new Validator();
+        HUMLFramework.OpenValidationSummary result =  val.validate(model);
+
+        assertThat(result, notNullValue());
+        assertThat(result.hasErrors(), is(true));
+        assertThat(result.getErrors(), notNullValue());
+        assertThat(result.getErrors().length, is(1));
+        assertThat(result.getErrors()[0], notNullValue());
+        assertThat(result.getErrors()[0].getError(), is("error"));
+    }
 
     @Test
     public void ArrayAmountTest() {
