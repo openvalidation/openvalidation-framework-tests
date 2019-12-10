@@ -247,12 +247,6 @@ public class HUMLFramework {
         return listToArray(out);
     }
 
-//    public <T> T FIRST(T item) {
-//        T[] ret = FIRST(item, -1);
-//
-//        return ret[0];
-//    }
-
     public <T> T FIRST(Object item) {
         T[] ret = FIRST(item, -1);
 
@@ -275,23 +269,6 @@ public class HUMLFramework {
         }
 
         return null;
-    }
-
-    public <T> T[] take(List<T> lst, int amount, int from) {
-        if (amount < 0)
-            return listToArray(lst);
-        
-        if(from < 0)
-            return  listToArray(lst.subList(lst.size() - amount, lst.size()));
-
-        return listToArray(lst.stream().limit((long) amount).collect(Collectors.toList()));
-    }
-
-    public <T> T[] take(T[] lst, int amount) {
-        if (amount < 0)
-            return lst;
-
-        return Arrays.stream(lst).limit((long) amount).collect(Collectors.toSet()).toArray(lst);
     }
 
     public <T> T[] FIRST(List<T> items, double amount) {
@@ -387,6 +364,62 @@ public class HUMLFramework {
         return null;
     }
 
+    public <T> T LAST(List<T> list) {
+        return LAST(listToArray(list));
+    }
+
+
+    public <T> T LAST(T[] array) {
+        if (array.length > 0)
+            return atPosition(array, array.length - 1);
+
+        return null;
+    }
+
+    public <T, R> R LAST(List<T> list, Function<? super T, ? extends R> propertySelector) {
+        return LAST(listToArray(list), propertySelector);
+    }
+
+    public <T, R> R LAST(T[] array, Function<? super T, ? extends R> propertySelector) {
+        if (array == null || array.length < 1)
+            return null;
+
+        List<R> out = Arrays.stream(array).map(propertySelector).collect(Collectors.toList());
+        return LAST(out);
+    }
+
+    public <T> T[] LAST(List<T> list, int amount) {
+        return LAST(listToArray(list), amount);
+    }
+
+    public <T> T[] LAST(T[] array, int amount) {
+        if (array == null || array.length < 1 || amount < 1)
+            return null;
+
+        Deque<T> result = new ArrayDeque<>(amount);
+        Arrays.stream(array).forEachOrdered(x -> {
+            if (result.size() == amount) {
+                result.pop();
+            }
+            result.add(x);
+        });
+
+        return listToArray(new ArrayList<>(result));
+    }
+
+    public <T, R> R[] LAST(List<T> list, Function<? super T, ? extends R> propertySelector, int amount) {
+        return LAST(listToArray(list), propertySelector, amount);
+    }
+
+
+    public <T, R> R[] LAST(T[] array, Function<? super T, ? extends R> propertySelector, int amount) {
+        if (array == null || array.length < 1)
+            return null;
+
+        List<R> out = Arrays.stream(array).map(propertySelector).collect(Collectors.toList());
+        return LAST(out, amount);
+    }
+
     public <T> T[] takeFromArray(Object item, int amount, int from) {
         int amnt = amount < 0 ? 1 : amount;
 
@@ -454,60 +487,14 @@ public class HUMLFramework {
         }
     }
 
-    public <T> T LAST(List<T> list) {
-        return LAST(listToArray(list));
-    }
+    public <T> T[] take(List<T> lst, int amount, int from) {
+        if (amount < 0)
+            return listToArray(lst);
 
+        if(from < 0)
+            return  listToArray(lst.subList(lst.size() - amount, lst.size()));
 
-    public <T> T LAST(T[] array) {
-        if (array.length > 0)
-            return atPosition(array, array.length - 1);
-
-        return null;
-    }
-
-    public <T, R> R LAST(List<T> list, Function<? super T, ? extends R> propertySelector) {
-        return LAST(listToArray(list), propertySelector);
-    }
-
-    public <T, R> R LAST(T[] array, Function<? super T, ? extends R> propertySelector) {
-        if (array == null || array.length < 1)
-            return null;
-
-        List<R> out = Arrays.stream(array).map(propertySelector).collect(Collectors.toList());
-        return LAST(out);
-    }
-
-    public <T> T[] LAST(List<T> list, int amount) {
-        return LAST(listToArray(list), amount);
-    }
-
-    public <T> T[] LAST(T[] array, int amount) {
-        if (array == null || array.length < 1 || amount < 1)
-            return null;
-
-        Deque<T> result = new ArrayDeque<>(amount);
-        Arrays.stream(array).forEachOrdered(x -> {
-            if (result.size() == amount) {
-                result.pop();
-            }
-            result.add(x);
-        });
-
-        return listToArray(new ArrayList<>(result));
-    }
-
-    public <T, R> R[] LAST(List<T> list, Function<? super T, ? extends R> propertySelector, int amount) {
-        return LAST(listToArray(list), propertySelector, amount);
-    }
-
-
-    public <T, R> R[] LAST(T[] array, Function<? super T, ? extends R> propertySelector, int amount) {
-        if (array == null || array.length < 1)
-            return null;
-
-        List<R> out = Arrays.stream(array).map(propertySelector).collect(Collectors.toList());
-        return LAST(out, amount);
+        return listToArray(lst.stream().limit((long) amount).collect(Collectors.toList()));
     }
 
     //#end first functions
