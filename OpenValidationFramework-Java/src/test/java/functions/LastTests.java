@@ -518,6 +518,21 @@ public class LastTests {
     }
 
     @Test
+    void last_very_large_primitive_int_array_as_object()
+    {
+        Object input = new int[10000];
+        for(int i = 0;i<10000;i++)
+            ((int[])input)[i]=i;
+        
+        Object res = huml.LAST(input, 2);
+
+        Assertions.assertTrue(res instanceof Integer[]);
+        Assertions.assertEquals(((Integer[])res).length, 2);
+        Assertions.assertEquals(((Integer[])res)[0], 9998);
+        Assertions.assertEquals(((Integer[])res)[1], 9999);
+    }
+
+    @Test
     void last_primitive_long_array_as_object()
     {
         Object input = new long[]{1L, 2L, 3L};
