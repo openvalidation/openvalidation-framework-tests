@@ -4,7 +4,7 @@ import org.bag.openvalidation.*;
 import org.bag.model.FirstTestModel;
 
 import org.bag.openvalidation.validator.Validator;
-import org.bag.openvalidation.validator.ValidatorFuncOnVarOnFunc;
+import org.bag.openvalidation.validator.ValidatorFirstFuncOnVarOnFunc;
 import org.bag.openvalidation.validator.ValidatorWithAmount;
 import org.bag.openvalidation.validator.ValidatorWithAmountWithMultipleVars;
 import org.junit.jupiter.api.Test;
@@ -91,7 +91,7 @@ public class FirstValidatorTest {
         FirstTestModel model = new FirstTestModel();
         model.setNumbers(lst);
 
-        ValidatorFuncOnVarOnFunc val = new ValidatorFuncOnVarOnFunc();
+        ValidatorFirstFuncOnVarOnFunc val = new ValidatorFirstFuncOnVarOnFunc();
         HUMLFramework.OpenValidationSummary result =  val.validate(model);
 
         assertThat(result, notNullValue());

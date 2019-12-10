@@ -1,13 +1,14 @@
 package org.bag.openvalidation.validator;
 
+import org.bag.model.LastTestModel;
 import org.bag.openvalidation.HUMLFramework;
 import org.bag.model.FirstTestModel;
 
-public class ValidatorFuncOnVarOnFunc implements HUMLFramework.IOpenValidator
+public class ValidatorFirstFuncOnVarOnFunc implements HUMLFramework.IOpenValidator
 {
     public HUMLFramework huml;
 
-    public ValidatorFuncOnVarOnFunc()
+    public ValidatorFirstFuncOnVarOnFunc()
     {
         huml = new HUMLFramework();
 
@@ -29,9 +30,7 @@ public class ValidatorFuncOnVarOnFunc implements HUMLFramework.IOpenValidator
            (FirstTestModel model) -> huml.EQUALS(X.GetValue(model), 1.0),
            false
         );
-
-
-
+        
     }
 
     public String getValidatorID(){
