@@ -2,14 +2,9 @@ package validators;
 
 import org.bag.model.EnumModel;
 import org.bag.model.Enums;
-import org.bag.model.FirstTestModel;
 import org.bag.openvalidation.HUMLFramework;
 import org.bag.openvalidation.validator.EnumValidator;
-import org.bag.openvalidation.validator.Validator;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
