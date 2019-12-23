@@ -3,14 +3,15 @@
 using System;
 using System.Runtime.InteropServices;
 using OpenValidationFramework_CSharp;
-using OpenValidationFramework_CSharp.Data;
+using OpenValidationFramework_CSharp.Validator;
+using OpenValidationFramework_CSharp.Model;
 
 namespace OpenValidationFramework_CSharp
 {
     public class Runner
     {
         public HUMLValidator Validator;
-        public Model MyModel;
+        public DefaultModel MyModel;
 
         
         
@@ -39,20 +40,20 @@ namespace OpenValidationFramework_CSharp
 
         }
 
-        private Model createDummyModel()
+        private DefaultModel createDummyModel()
         {
-            Model mod = new Model();
+            DefaultModel mod = new DefaultModel();
             mod.Name = "Berry";
             mod.Profession = "Police Officer";
-            mod.Address = new Model.AddressClass();
+            mod.Address = new DefaultModel.AddressClass();
             mod.Address.City = "New York";
             mod.Address.Street = "Broadway";
             mod.Address.Number = 100;
 
             mod.Vehicles = new[]
                 {
-                    new Model.Vehicle() {Modelname = "Ferrari", RegisterYear = 1999}
-                    , new Model.Vehicle(){Modelname = "Tesla", RegisterYear = 2015}
+                    new DefaultModel.Vehicle() {Modelname = "Ferrari", RegisterYear = 1999}
+                    , new DefaultModel.Vehicle(){Modelname = "Tesla", RegisterYear = 2015}
                 };
 
             return mod;

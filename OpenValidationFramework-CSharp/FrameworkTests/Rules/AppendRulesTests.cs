@@ -2,7 +2,8 @@ using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenValidationFramework_CSharp;
-using OpenValidationFramework_CSharp.Data;
+using OpenValidationFramework_CSharp.Validator;
+using OpenValidationFramework_CSharp.Model;
 
 namespace FrameworkTests.Rules
 {
@@ -12,7 +13,7 @@ namespace FrameworkTests.Rules
         [TestMethod]
         public void Validator_hasErrors()
         {
-            Model mod = new Model();
+            DefaultModel mod = new DefaultModel();
             mod.Name = "Berry";
             HUMLValidator val = new HUMLValidator();
             var res = val.Validate(mod);
@@ -23,7 +24,7 @@ namespace FrameworkTests.Rules
         [TestMethod]
         public void Validator_has4Rules()
         {
-            Model mod = new Model();
+            DefaultModel mod = new DefaultModel();
             mod.Name = "Berry";
             HUMLValidator val = new HUMLValidator();
 
@@ -37,7 +38,7 @@ namespace FrameworkTests.Rules
             huml.appendRule("",
                 new String[]{ "name" },
                 "name must be Jerry",
-                (Model model) => huml.NOT_EQUALS(model.Name, "Jerry"),
+                (DefaultModel model) => huml.NOT_EQUALS(model.Name, "Jerry"),
                 false
             );
             
@@ -51,7 +52,7 @@ namespace FrameworkTests.Rules
             var rule = huml.appendRule("",
                 new String[]{ "name" },
                 "name must be Jerry",
-                (Model model) => huml.NOT_EQUALS(model.Name, "Jerry"),
+                (DefaultModel model) => huml.NOT_EQUALS(model.Name, "Jerry"),
                 false
             );
             
