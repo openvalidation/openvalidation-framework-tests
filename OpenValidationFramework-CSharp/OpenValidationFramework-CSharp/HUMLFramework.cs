@@ -102,9 +102,40 @@ namespace OpenValidationFramework_CSharp
             return EqualityComparer<T>.Default.Equals(leftOperand, rightOperand);
         }
 
+        public bool EQUALS(Object leftOperand, Object rightOperand)
+        {
+            if (IsNumericType(leftOperand))
+            {
+                return EqualityComparer<Double>.Default.Equals((double)leftOperand, (double)rightOperand);
+            }
+
+            return EqualityComparer<Object>.Default.Equals(leftOperand, rightOperand);
+        }
+
         public bool NOT_EQUALS<T>(T leftOperand, T rightOperand)
         {
             return !EQUALS(leftOperand, rightOperand);
+        }
+        
+        public static bool IsNumericType(object o)
+        {   
+            switch (Type.GetTypeCode(o.GetType()))
+            {
+                case TypeCode.Byte:
+                case TypeCode.SByte:
+                case TypeCode.UInt16:
+                case TypeCode.UInt32:
+                case TypeCode.UInt64:
+                case TypeCode.Int16:
+                case TypeCode.Int32:
+                case TypeCode.Int64:
+                case TypeCode.Decimal:
+                case TypeCode.Double:
+                case TypeCode.Single:
+                    return true;
+                default:
+                    return false;
+            }
         }
         
         public bool EMPTY<T>(T operand)
@@ -180,9 +211,9 @@ namespace OpenValidationFramework_CSharp
             return operand.Take(amount).ToArray();
         }
         
-        public T[] FIRST<T>(IEnumerable<T> operand)
+        public T FIRST<T>(IEnumerable<T> operand)
         {
-            return FIRST(operand, 1);
+            return FIRST(operand, 1)[0];
         }
         
         public T[] FIRST<T>(IEnumerable<T> operand, Func<T,T> selector, int amount)
@@ -200,9 +231,14 @@ namespace OpenValidationFramework_CSharp
             return FIRST(operand.Reverse(), amount).Reverse().ToArray();
         }
         
-        public T[] LAST<T>(IEnumerable<T> operand)
+        public T[] LAST<T>(IEnumerable<T> operand, double amount)
         {
-            return FIRST(operand.Reverse()).Reverse().ToArray();
+            return LAST(operand, (int) amount);
+        }
+        
+        public T LAST<T>(IEnumerable<T> operand)
+        {
+            return FIRST(operand.Reverse());
         }
 
         public T[] WHERE<T>(T[] operand, Func<T,bool> function)

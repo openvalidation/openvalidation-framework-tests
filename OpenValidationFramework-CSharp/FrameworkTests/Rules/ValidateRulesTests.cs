@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenValidationFramework_CSharp;
-using OpenValidationFramework_CSharp.Data;
+using OpenValidationFramework_CSharp.Model;
 
 namespace FrameworkTests.Rules
 {
@@ -18,11 +18,11 @@ namespace FrameworkTests.Rules
             var rule = huml.appendRule("",
                 new String[]{ "name" },
                 "name must be Jerry",
-                (Model model) => huml.NOT_EQUALS(model.Name, "Jerry"),
+                (DefaultModel model) => huml.NOT_EQUALS(model.Name, "Jerry"),
                 false
             );
             
-            Assert.IsTrue(huml.validate(new Model(){Name = "James"}).HasErrors);
+            Assert.IsTrue(huml.validate(new DefaultModel(){Name = "James"}).HasErrors);
         }
         
         [TestMethod]
@@ -32,11 +32,11 @@ namespace FrameworkTests.Rules
             var rule = huml.appendRule("",
                 new String[]{ "name" },
                 "name must be Jerry",
-                (Model model) => huml.NOT_EQUALS(model.Name, "Jerry"),
+                (DefaultModel model) => huml.NOT_EQUALS(model.Name, "Jerry"),
                 false
             );
             
-            Assert.IsFalse(huml.validate(new Model(){Name = "Jerry"}).HasErrors);
+            Assert.IsFalse(huml.validate(new DefaultModel(){Name = "Jerry"}).HasErrors);
         }
         
         [TestMethod]
@@ -46,11 +46,11 @@ namespace FrameworkTests.Rules
             var rule = huml.appendRule("",
                 new String[]{ "name" },
                 "name must be Jerry",
-                (Model model) => huml.NOT_EQUALS(model.Name, "Jerry"),
+                (DefaultModel model) => huml.NOT_EQUALS(model.Name, "Jerry"),
                 false
             );
             
-            Assert.IsFalse(rule.Validate(new Model(){Name = "Jerry"}).HasErrors);
+            Assert.IsFalse(rule.Validate(new DefaultModel(){Name = "Jerry"}).HasErrors);
         }
         
         [TestMethod]
@@ -60,10 +60,10 @@ namespace FrameworkTests.Rules
             var rule = huml.appendRule("",
                 new String[]{ "name" },
                 "name must be Jerry",
-                (Model model) => huml.NOT_EQUALS(model.Name, "Jerry"),
+                (DefaultModel model) => huml.NOT_EQUALS(model.Name, "Jerry"),
                 false
             );
-            Assert.IsTrue(rule.Validate(new Model(){Name = "James"}).HasErrors);
+            Assert.IsTrue(rule.Validate(new DefaultModel(){Name = "James"}).HasErrors);
         }
         
         [TestMethod]
@@ -73,11 +73,11 @@ namespace FrameworkTests.Rules
             var rule = huml.appendRule("",
                 new String[]{ "name" },
                 "name must be Jerry",
-                (Model model) => huml.NOT_EQUALS(model.Name, "Jerry"),
+                (DefaultModel model) => huml.NOT_EQUALS(model.Name, "Jerry"),
                 false
             );
             
-            Assert.IsTrue(rule.ExecuteCondition(new Model(){Name = "James"}));
+            Assert.IsTrue(rule.ExecuteCondition(new DefaultModel(){Name = "James"}));
         }
         
         [TestMethod]
@@ -87,11 +87,11 @@ namespace FrameworkTests.Rules
             var rule = huml.appendRule("",
                 new String[]{ "name" },
                 "name must be Jerry",
-                (Model model) => huml.NOT_EQUALS(model.Name, "Jerry"),
+                (DefaultModel model) => huml.NOT_EQUALS(model.Name, "Jerry"),
                 false
             );
             
-            Assert.IsFalse(rule.ExecuteCondition(new Model(){Name = "Jerry"}));
+            Assert.IsFalse(rule.ExecuteCondition(new DefaultModel(){Name = "Jerry"}));
         }
     }
 }

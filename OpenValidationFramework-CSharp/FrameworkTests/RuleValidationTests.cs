@@ -2,7 +2,7 @@ using System;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenValidationFramework_CSharp;
-using OpenValidationFramework_CSharp.Data;
+using OpenValidationFramework_CSharp.Model;
 
 namespace FrameworkTests
 {
@@ -12,10 +12,10 @@ namespace FrameworkTests
         [TestMethod]
         public void validate_rule_test_should_succeed()
         {
-            Model person = new Model();
+            DefaultModel person = new DefaultModel();
             person.Name = "Jerry";
             var huml = new HUMLFramework();
-            var rule = huml.appendRule<Model>("JerryRule",
+            var rule = huml.appendRule<DefaultModel>("JerryRule",
                 new String[]
                 {
                     "Name"
@@ -33,10 +33,10 @@ namespace FrameworkTests
         [TestMethod]
         public void validate_rule_test_should_fail()
         {
-            Model person = new Model();
+            DefaultModel person = new DefaultModel();
             person.Name = "Karl";
             var huml = new HUMLFramework();
-            var rule = huml.appendRule<Model>("JerryRule",
+            var rule = huml.appendRule<DefaultModel>("JerryRule",
                 new String[]
                 {
                     "Name"
@@ -54,10 +54,10 @@ namespace FrameworkTests
         [TestMethod]
         public void validate_framework_error_should_match_rule_error()
         {
-            Model person = new Model();
+            DefaultModel person = new DefaultModel();
             person.Name = "Karl";
             var huml = new HUMLFramework();
-            var rule = huml.appendRule<Model>("firstRule",
+            var rule = huml.appendRule<DefaultModel>("firstRule",
                 new String[]
                 {
                     "Name"
@@ -76,10 +76,10 @@ namespace FrameworkTests
         [TestMethod]
         public void validateRule_framework_error_should_match_rule_error()
         {
-            Model person = new Model();
+            DefaultModel person = new DefaultModel();
             person.Name = "Karl";
             var huml = new HUMLFramework();
-            var rule = huml.appendRule<Model>("",
+            var rule = huml.appendRule<DefaultModel>("",
                 new String[]
                 {
                     "Name"
