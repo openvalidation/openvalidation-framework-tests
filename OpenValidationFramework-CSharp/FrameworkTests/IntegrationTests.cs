@@ -34,11 +34,24 @@ namespace FrameworkTests
             mod.Numbers.Add(3);
             mod.Numbers.Add(2);
             mod.Numbers.Add(1);
-            
-            LastTestValidator val = new LastTestValidator();
+
+            LastTestValidator val = LastTestValidator.createValidatorWithMultipleArraysInVars();
             var res = val.Validate(mod);
             
             Assert.IsTrue(res.HasErrors);
+        }
+        
+        [TestMethod]
+        public void EnumValidator_should_have_errors()
+        {
+            EnumModel mod = new EnumModel();
+            mod.Enums = new[] {Color.Red, Color.Green};
+
+            EnumValidator val = EnumValidator.createValidatorWithMultipleArraysInVars();
+            var res = val.Validate(mod);
+            
+            Assert.IsTrue(res.HasErrors);
+            Assert.IsTrue(res.Errors[0].Error.Equals("error"));
         }
     }
 }

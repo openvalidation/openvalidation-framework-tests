@@ -7,25 +7,29 @@ namespace OpenValidationFramework_CSharp.Validator
     {
         public HUMLFramework huml;
 
-        public LastTestValidator() //TESTValidator_last_function_on_variable_containing_a_function_with_variable
+        public static LastTestValidator createValidatorWithMultipleArraysInVars() //TESTValidator_last_function_on_variable_containing_a_function_with_variable
         {
-            huml = new HUMLFramework();
+            LastTestValidator val = new LastTestValidator();
 
-            var array = huml.CreateVariable("array", (LastModel model) => model.Numbers);
+            var array = val.huml.CreateVariable("array", (LastModel model) => model.Numbers);
 
-            var last2Array = huml.CreateVariable("last2Array", (LastModel model) => huml.LAST(array.GetValue(model), 2.0));
+            var last2Array = val.huml.CreateVariable("last2Array", (LastModel model) => val.huml.LAST(array.GetValue(model), 2.0));
 
-            var X = huml.CreateVariable("X", (LastModel model) => huml.LAST(last2Array.GetValue(model)));
+            var X = val.huml.CreateVariable("X", (LastModel model) => val.huml.LAST(last2Array.GetValue(model)));
 
-            huml.appendRule("",
+            val.huml.appendRule("",
                 new String[]{ "numbers" },
                 "error",
-                (LastModel model) => huml.EQUALS(X.GetValue(model), 1.0),
+                (LastModel model) => val.huml.EQUALS(X.GetValue(model), 1.0),
                 false
             );
+            
+            return val;
+        }
 
-    
-
+        private LastTestValidator()
+        {
+            this.huml = new HUMLFramework();
         }
 
         public String ValidatorID {

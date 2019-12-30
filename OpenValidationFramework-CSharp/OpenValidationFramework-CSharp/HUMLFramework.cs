@@ -104,7 +104,7 @@ namespace OpenValidationFramework_CSharp
 
         public bool EQUALS(Object leftOperand, Object rightOperand)
         {
-            if (IsNumericType(leftOperand))
+            if (IsNumericType(leftOperand) && IsNumericType(rightOperand))
             {
                 return EqualityComparer<Double>.Default.Equals((double)leftOperand, (double)rightOperand);
             }
@@ -223,22 +223,22 @@ namespace OpenValidationFramework_CSharp
         
         public T[] LAST<T>(IEnumerable<T> operand, Func<T,T> selector, int amount)
         {
-            return FIRST(operand.Reverse(), selector, amount).Reverse().ToArray();
+            return operand.Select(selector).TakeLast(amount).ToArray();
         }
         
         public T[] LAST<T>(IEnumerable<T> operand, int amount)
         {
-            return FIRST(operand.Reverse(), amount).Reverse().ToArray();
+            return operand.TakeLast(amount).ToArray();
         }
         
         public T[] LAST<T>(IEnumerable<T> operand, double amount)
         {
-            return LAST(operand, (int) amount);
+            return operand.TakeLast((int) amount).ToArray();
         }
         
         public T LAST<T>(IEnumerable<T> operand)
         {
-            return FIRST(operand.Reverse());
+            return operand.Last();
         }
 
         public T[] WHERE<T>(T[] operand, Func<T,bool> function)
