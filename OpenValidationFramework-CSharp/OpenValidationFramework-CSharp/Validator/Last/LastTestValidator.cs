@@ -1,7 +1,8 @@
 using System;
+using OpenValidationFramework_CSharp;
 using OpenValidationFramework_CSharp.Model;
 
-namespace OpenValidationFramework_CSharp.Validator
+namespace OpenValidationFramework_CSharp.Validator.Last
 {
     public class LastTestValidator
     {

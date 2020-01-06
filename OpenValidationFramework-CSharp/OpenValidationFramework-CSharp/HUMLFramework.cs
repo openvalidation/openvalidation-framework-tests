@@ -216,14 +216,19 @@ namespace OpenValidationFramework_CSharp
             return FIRST(operand, 1)[0];
         }
         
-        public T[] FIRST<T>(IEnumerable<T> operand, Func<T,T> selector, int amount)
+        public T[] FIRST<T>(IEnumerable<T> operand, Func<T,bool> filter, int amount)
         {
-            return operand.Select(selector).Take(amount).ToArray();
+            return operand.Where(filter).Take(amount).ToArray();
         }
         
-        public T[] LAST<T>(IEnumerable<T> operand, Func<T,T> selector, int amount)
+        public T LAST<T>(IEnumerable<T> operand, Func<T,bool> filter)
         {
-            return operand.Select(selector).TakeLast(amount).ToArray();
+            return operand.Where(filter).Last();
+        }
+        
+        public T[] LAST<T>(IEnumerable<T> operand, Func<T,bool> filter, int amount)
+        {
+            return operand.Where(filter).TakeLast(amount).ToArray();
         }
         
         public T[] LAST<T>(IEnumerable<T> operand, int amount)
@@ -241,9 +246,9 @@ namespace OpenValidationFramework_CSharp
             return operand.Last();
         }
 
-        public T[] WHERE<T>(T[] operand, Func<T,bool> function)
+        public T[] WHERE<T>(T[] operand, Func<T,bool> filter)
         {
-            return operand.Where(function).ToArray();
+            return operand.Where(filter).ToArray();
         }
 
         public static IEnumerable<TSource> DistinctBy<TSource, TKey>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
