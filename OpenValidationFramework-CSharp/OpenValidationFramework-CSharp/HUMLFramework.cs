@@ -210,6 +210,10 @@ namespace OpenValidationFramework_CSharp
         {
             return operand.Take(amount).ToArray();
         }
+        public T[] FIRST<T>(IEnumerable<T> operand, double amount)
+        {
+            return operand.Take((int)amount).ToArray();
+        }
         
         public T FIRST<T>(IEnumerable<T> operand)
         {
