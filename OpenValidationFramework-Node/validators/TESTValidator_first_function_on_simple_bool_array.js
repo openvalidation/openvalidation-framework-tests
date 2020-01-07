@@ -2,12 +2,12 @@ var huml = require('../HUMLFramework');
 
 var TESTValidator_first_function_on_simple_bool_array = function() {
 
-            var X = huml.createVariable("X", function(model) { console.log('in getValue');return huml.FIRST(model.booleans); });
+            var X = huml.createVariable("X", function(model) { return huml.FIRST(model.booleans); });
 
             huml.appendRule("",
                    ["booleans"],
                    "error",
-                   function(model) { console.log('in checking');return huml.EQUALS(X.GetValue(model), true);}, //inner methods do not get called
+                   function(model) { return huml.EQUALS(X.GetValue(model), true);}, //inner methods do not get called
                    false
                 );
 
