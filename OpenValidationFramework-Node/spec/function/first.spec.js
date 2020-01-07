@@ -16,4 +16,18 @@ describe('Functions - FIRST', () => {
         expect(huml.FIRST([1,2,3], 4)) 
             .toEqual([1,2,3]); 
     });
+
+    it('First of 1,2,3 in object should be 1', () => { 
+        let cont = {numbers:[1,2,3]};
+        
+        expect(huml.FIRST(cont.numbers, 1)) 
+            .toEqual(1); 
+    });
+
+    it('First of 1,2,3 in object should be 3', () => { 
+        let cont = {numbers:[1,2,3]};
+        
+        expect(huml.FIRST(cont.numbers)) 
+            .toEqual(1); 
+    });
 });
