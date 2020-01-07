@@ -16,4 +16,18 @@ describe('Functions - LAST', () => {
         expect(huml.LAST([1,2,3], 4)) 
             .toEqual([1,2,3]); 
     });
+    
+    it('LAST of 1,2,3 in object should be 3', () => { 
+        let cont = {numbers:[1,2,3]};
+        
+        expect(huml.LAST(cont.numbers, 1)) 
+            .toEqual(3); 
+    });
+
+    it('LAST of 1,2,3 in object in object should be 3', () => { 
+        let cont = {container:{numbers:[1,2,3]}};
+        
+        expect(huml.LAST(cont.container.numbers)) 
+            .toEqual(3); 
+    });
 });
