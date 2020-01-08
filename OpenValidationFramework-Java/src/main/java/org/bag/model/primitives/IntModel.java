@@ -1,8 +1,12 @@
 package org.bag.model.primitives;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class IntModel {
     private int[] ints;
     private int value;
+    private List<Integer> intList = new ArrayList<>();
 
     public int[] getInts() {
         return ints;
@@ -18,5 +22,13 @@ public class IntModel {
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    public List<Integer> getIntList() {
+        return intList;
+    }
+
+    public void setIntList(List<Integer> intList) {
+        this.intList = intList;
     }
 }
