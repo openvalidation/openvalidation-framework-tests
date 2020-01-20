@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IntModel {
+    private Integer[] IntArray;
     private int[] ints;
     private int value;
     private List<Integer> intList = new ArrayList<>();
@@ -30,5 +31,13 @@ public class IntModel {
 
     public void setIntList(List<Integer> intList) {
         this.intList = intList;
+    }
+
+    public Integer[] getIntArray() {
+        return IntArray;
+    }
+
+    public void setIntArray(Integer[] intArray) {
+        IntArray = intArray;
     }
 }
