@@ -250,7 +250,7 @@ namespace OpenValidationFramework_CSharp
             return operand.Last();
         }
 
-        public T[] WHERE<T>(T[] operand, Func<T,bool> filter)
+        public T[] WHERE<T>(IEnumerable<T> operand, Func<T,bool> filter)
         {
             return operand.Where(filter).ToArray();
         }
