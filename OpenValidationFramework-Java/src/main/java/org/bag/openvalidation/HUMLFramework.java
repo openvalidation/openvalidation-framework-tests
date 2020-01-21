@@ -243,7 +243,6 @@ public class HUMLFramework {
         if(item instanceof List){
             return WHERE((List<T>)item, condition);
         } else if(item.getClass().isArray()){
-            //todo 20.01.20 add tests for simple types tests
             if (item.getClass().getName().equalsIgnoreCase("[i"))//integer primitive array
             {
                 List<Integer> lst = new ArrayList<>();
