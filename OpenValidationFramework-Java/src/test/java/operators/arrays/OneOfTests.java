@@ -8,6 +8,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -82,6 +83,20 @@ public class OneOfTests {
         Assertions.assertFalse(huml.ONE_OF(input_left, 2,3,4));
     }
 
+    @Test
+    public void number_int_should_be_one_of_list_of_type_int_as_list() {
+        HUMLFramework huml = new HUMLFramework();
+        int input_left = 1;
+        Assertions.assertTrue(huml.ONE_OF(input_left, Arrays.asList(1,2,3)));
+    }
+
+    @Test
+    public void number_int_should_not_be_one_of_list_of_type_int_as_list() {
+        HUMLFramework huml = new HUMLFramework();
+        int input_left = 1;
+        Assertions.assertFalse(huml.ONE_OF(input_left, Arrays.asList(2,3,4)));
+    }
+
     //int -> Integer
     @Test
     public void number_int_should_be_one_of_list_of_type_integer() {
@@ -95,6 +110,20 @@ public class OneOfTests {
         HUMLFramework huml = new HUMLFramework();
         int input_left = 1;
         Assertions.assertFalse(huml.ONE_OF(input_left, new Integer(2), new Integer(3), new Integer(4)));
+    }
+
+    @Test
+    public void number_int_should_be_one_of_list_of_type_integer_as_list() {
+        HUMLFramework huml = new HUMLFramework();
+        int input_left = 1;
+        Assertions.assertTrue(huml.ONE_OF(input_left, Arrays.asList(new Integer(1), new Integer(3), new Integer(4))));
+    }
+
+    @Test
+    public void number_int_should_not_be_one_of_list_of_type_integer_as_list() {
+        HUMLFramework huml = new HUMLFramework();
+        int input_left = 1;
+        Assertions.assertFalse(huml.ONE_OF(input_left,Arrays.asList( new Integer(2), new Integer(3), new Integer(4))));
     }
 
     //int -> double
@@ -112,6 +141,20 @@ public class OneOfTests {
         Assertions.assertFalse(huml.ONE_OF(input_left, 2.0, 3.0, 4.0));
     }
 
+    @Test
+    public void number_int_should_be_one_of_list_of_type_double_as_list() {
+        HUMLFramework huml = new HUMLFramework();
+        int input_left = 1;
+        Assertions.assertTrue(huml.ONE_OF(input_left, Arrays.asList(1.0, 2.0, 3.0)));
+    }
+
+    @Test
+    public void number_int_should_not_be_one_of_list_of_type_double_as_list() {
+        HUMLFramework huml = new HUMLFramework();
+        int input_left = 1;
+        Assertions.assertFalse(huml.ONE_OF(input_left, Arrays.asList(2.0, 3.0, 4.0)));
+    }
+
     //int -> Double
     @Test
     public void number_int_should_be_one_of_list_of_type_Double() {
@@ -127,6 +170,20 @@ public class OneOfTests {
         Assertions.assertFalse(huml.ONE_OF(input_left, new Double(2), new Double(3), new Double(4)));
     }
 
+    @Test
+    public void number_int_should_be_one_of_list_of_type_Double_as_list() {
+        HUMLFramework huml = new HUMLFramework();
+        int input_left = 1;
+        Assertions.assertTrue(huml.ONE_OF(input_left, Arrays.asList(new Double(1), new Double(3), new Double(4))));
+    }
+
+    @Test
+    public void number_int_should_not_be_one_of_list_of_type_Double_as_list() {
+        HUMLFramework huml = new HUMLFramework();
+        int input_left = 1;
+        Assertions.assertFalse(huml.ONE_OF(input_left, Arrays.asList(new Double(2), new Double(3), new Double(4))));
+    }
+
     //int -> Number
     @Test
     public void number_int_should_be_one_of_list_of_type_number() {
@@ -135,12 +192,25 @@ public class OneOfTests {
         Assertions.assertTrue(huml.ONE_OF(input_left, (Number)1, (Number)2, (Number)3));
     }
 
-    //int -> Number
     @Test
     public void number_int_should_not_be_one_of_list_of_type_number() {
         HUMLFramework huml = new HUMLFramework();
         int input_left = 1;
         Assertions.assertFalse(huml.ONE_OF(input_left, (Number)2, (Number)3, (Number)4));
+    }
+
+    @Test
+    public void number_int_should_be_one_of_list_of_type_number_as_list() {
+        HUMLFramework huml = new HUMLFramework();
+        int input_left = 1;
+        Assertions.assertTrue(huml.ONE_OF(input_left, Arrays.asList((Number)1, (Number)2, (Number)3)));
+    }
+
+    @Test
+    public void number_int_should_not_be_one_of_list_of_type_number_as_list() {
+        HUMLFramework huml = new HUMLFramework();
+        int input_left = 1;
+        Assertions.assertFalse(huml.ONE_OF(input_left, Arrays.asList((Number)2, (Number)3, (Number)4)));
     }
 
     
