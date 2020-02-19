@@ -56,6 +56,20 @@ public class OneOfTests {
         Assertions.assertTrue(huml.ONE_OF(input_left, "Heins", "Jens", "Franz", "Peter", "Klaus", "Helmut"));
     }
 
+    @Test
+    public void string_should_not_be_one_of_list_inline_as_list() {
+        HUMLFramework huml = new HUMLFramework();
+        String input_left = "Franz";
+        Assertions.assertFalse(huml.ONE_OF(input_left, Arrays.asList("Heins", "Jens", "Peter", "Klaus", "Helmut")));
+    }
+
+    @Test
+    public void string_should_be_one_of_list_inline_as_list() {
+        HUMLFramework huml = new HUMLFramework();
+        String input_left = "Franz";
+        Assertions.assertTrue(huml.ONE_OF(input_left, Arrays.asList("Heins", "Jens", "Franz", "Peter", "Klaus", "Helmut")));
+    }
+
     //todo lazevedo 16.9.19 what is the expected behaviour. in my opinion it should be semantically "exactly
     // one of" since the HUMLFramework contains a method called explicitly "AT_LEAST_ONE_OF"
     @Disabled
