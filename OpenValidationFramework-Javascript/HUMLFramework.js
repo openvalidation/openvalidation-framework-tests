@@ -79,8 +79,17 @@ var HUMLFramework = function() {
     }
 
     this.ONE_OF = function(value, parameters){
-        throw "NOT Implemented!!!";
-        //return true/false;
+        var res = false;
+        for(var i = 0; i < parameters.length; i++)
+        {
+            if(parameters[i] == (value))
+            {
+                res = true;
+                break;
+            }
+        }
+        return res;
+        //return Array.prototype.some(x => x.equals(value));
     }
 
     this.EQUALS = function(leftOperand, rightOperand)
