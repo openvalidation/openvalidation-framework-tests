@@ -78,17 +78,10 @@ var HUMLFramework = function() {
         return (out.length() == 1)? out[0] : out;
     }
 
-    this.ONE_OF = function(value, parameters){
-        var res = false;
-        for(var i = 0; i < parameters.length; i++)
-        {
-            if(parameters[i] == (value))
-            {
-                res = true;
-                break;
-            }
-        }
-        return res;
+    this.ONE_OF = function(value, ...params){
+        if(params.length == 1 && params[0].length > 0)
+            return params[0].includes(value);
+        return params.includes(value);
     }
 
     this.EQUALS = function(leftOperand, rightOperand)
