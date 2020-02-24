@@ -75,7 +75,7 @@ var HUMLFramework = function() {
             }
         }
 
-        return (out.lenght() == 1)? out[0] : out;
+        return (out.length() == 1)? out[0] : out;
     }
 
     this.ONE_OF = function(value, parameters){
@@ -89,7 +89,6 @@ var HUMLFramework = function() {
             }
         }
         return res;
-        //return Array.prototype.some(x => x.equals(value));
     }
 
     this.EQUALS = function(leftOperand, rightOperand)
@@ -145,7 +144,7 @@ var HUMLFramework = function() {
         if (!operand) return true;
 
         if (Array.isArray(operand))
-            return operand.lenght < 1;
+            return operand.length < 1;
 
         return false;
     }
