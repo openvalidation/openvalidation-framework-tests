@@ -255,6 +255,11 @@ namespace OpenValidationFramework_CSharp
             return operand.Where(filter).ToArray();
         }
 
+        public T[] CREATE_ARRAY<T>(params T[] operand)
+        {
+            return operand;
+        }
+
         public static IEnumerable<TSource> DistinctBy<TSource, TKey>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
             HashSet<TKey> seenKeys = new HashSet<TKey>();

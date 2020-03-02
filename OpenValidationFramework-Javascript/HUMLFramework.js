@@ -145,4 +145,8 @@ var HUMLFramework = function() {
     this.NOT_EMPTY = function(operand) {
         return !this.EMPTY(operand);
     }
+
+    this.CREATE_ARRAY = function(...x) {
+        return x;
+    }
 }

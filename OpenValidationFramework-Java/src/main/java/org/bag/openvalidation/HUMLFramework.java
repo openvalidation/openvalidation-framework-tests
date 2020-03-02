@@ -580,6 +580,11 @@ public class HUMLFramework {
         return null;
     }
 
+    public <T> T[] CREATE_ARRAY(T... items)
+    {
+        return items;
+    }
+
     public interface IOpenValidator {
         String getValidatorID();
 
