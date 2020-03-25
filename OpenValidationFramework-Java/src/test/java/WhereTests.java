@@ -1,8 +1,11 @@
+import org.bag.model.StandardModel;
 import org.bag.openvalidation.HUMLFramework;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import util.GenericVariable;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -130,7 +133,7 @@ public class WhereTests {
         Assertions.assertEquals(input.get(0), result[0]);
         Assertions.assertEquals(input.get(2), result[1]);
     }
-    
+
     @Test
     void where_with_person_list_and_always_true_predicate_retains_order()
     {
@@ -144,5 +147,19 @@ public class WhereTests {
         Assertions.assertEquals(input.get(0), result[0]);
         Assertions.assertEquals(input.get(1), result[1]);
         Assertions.assertEquals(input.get(2), result[2]);
+    }
+
+    @Test
+    void where_with_generic_variable_person_array_and_filtering_predicate()
+    {
+        Person p1 = new Person("Bob", 24, false);
+        Person p2 = new Person("Ross", 42, true);
+        Person p3 = new Person("Batman", 38, false);
+
+        GenericVariable variable = new GenericVariable(new Person[]{p1,p2,p3});
+        Predicate<Person> predicate = p -> !p.married ;
+        Person[] result = huml.WHERE(variable.getValue(), predicate);
+        Assertions.assertEquals(p1, result[0]);
+        Assertions.assertEquals(p3, result[1]);
     }
 }
