@@ -169,22 +169,22 @@ namespace OpenValidationFramework_CSharp
             return res >= 0;
         }
 
-        public bool ONE_OF<T>(T leftOperand, params T[] rightOperand)
+        public bool ONE_OF<T>(T leftOperand, IEnumerable<T> rightOperand)
         {
             return rightOperand.Any(i => i.Equals(leftOperand));
         }
 
-        public bool AT_LEAST_ONE_OF<T>(T leftOperand, params T[] rightOperand)
+        public bool AT_LEAST_ONE_OF<T>(T leftOperand, IEnumerable<T> rightOperand)
         {
             return ONE_OF(leftOperand, rightOperand);
         }
 
-        public bool NONE_OF<T>(T leftOperand, params T[] rightOperand)
+        public bool NONE_OF<T>(T leftOperand, IEnumerable<T> rightOperand)
         {
             return !AT_LEAST_ONE_OF(leftOperand, rightOperand);
         }
         
-        public Decimal SUM_OF<T>(params T[] operand)
+        public Decimal SUM_OF<T>(IEnumerable<T> operand)
         {
             List<Decimal> dec = new List<decimal>();
             operand.ToList().ForEach(x => dec.Add(Convert.ToDecimal(x)));

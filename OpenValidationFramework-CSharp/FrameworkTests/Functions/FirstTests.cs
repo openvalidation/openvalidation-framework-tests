@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -42,6 +43,34 @@ namespace FrameworkTests.Functions
             Assert.AreEqual(_huml.FIRST(nums, 3).ElementAt(2), 3);
         }
 
-        
+        [TestMethod]
+        public void First_with_generic_variable_array()
+        {
+            Object objectStringA = "a";
+            Object objectStringZ = "z";
+
+            var var = _huml.CreateVariable("var", (DefaultModel model) => new String[] { "a", "b", "c" });
+
+            Assert.AreEqual("a", _huml.FIRST(var.GetValue(new DefaultModel())));
+            Assert.AreNotEqual("z", _huml.FIRST(var.GetValue(new DefaultModel())));
+
+            Assert.AreEqual(objectStringA, _huml.FIRST(var.GetValue(new DefaultModel())));
+            Assert.AreNotEqual(objectStringZ, _huml.FIRST(var.GetValue(new DefaultModel())));
+        }
+
+        [TestMethod]
+        public void First_with_generic_variable_list()
+        {
+            string objectStringA = "a";
+            string objectStringZ = "z";
+
+            var var = _huml.CreateVariable("var", (DefaultModel model) => new List<string>{ "a" , "b", "c" });
+
+            Assert.AreEqual("a", _huml.FIRST(var.GetValue(new DefaultModel())));
+            Assert.AreNotEqual("z", _huml.FIRST(var.GetValue(new DefaultModel())));
+
+            Assert.AreEqual(objectStringA, _huml.FIRST(var.GetValue(new DefaultModel())));
+            Assert.AreNotEqual(objectStringZ, _huml.FIRST(var.GetValue(new DefaultModel())));
+        }
     }
 }

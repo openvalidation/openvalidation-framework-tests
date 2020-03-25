@@ -1,16 +1,14 @@
 package functions;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.bag.openvalidation.HUMLFramework;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import util.GenericVariable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Function;
 
 // A note on 'suppress warnings for unchecked' - the point of those tests to handle input of unchecked inputs.
 
@@ -861,4 +859,36 @@ public class FirstTests {
         Assertions.assertEquals(((Character[])res)[1], 'b');
     }
     //endregion
+
+    @Test
+    public void first_with_generic_variable_array()
+    {
+        Object objectStringA = "a";
+        Object objectStringZ = "z";
+
+        GenericVariable var = new GenericVariable(new String[]{"a", "b", "c"});
+
+        Assertions.assertEquals("a", huml.FIRST(var.getValue()));
+        Assertions.assertNotEquals("z", huml.FIRST(var.getValue()));
+
+
+        Assertions.assertEquals(objectStringA, huml.FIRST(var.getValue()));
+        Assertions.assertNotEquals(objectStringZ, huml.FIRST(var.getValue()));
+    }
+
+    @Test
+    public void first_with_generic_variable_list()
+    {
+        Object objectStringA = "a";
+        Object objectStringZ = "z";
+
+        GenericVariable var = new GenericVariable(Arrays.asList("a", "b", "c"));
+
+        Assertions.assertEquals("a", huml.FIRST(var.getValue()));
+        Assertions.assertNotEquals("z", huml.FIRST(var.getValue()));
+
+
+        Assertions.assertEquals(objectStringA, huml.FIRST(var.getValue()));
+        Assertions.assertNotEquals(objectStringZ, huml.FIRST(var.getValue()));
+    }
 }
